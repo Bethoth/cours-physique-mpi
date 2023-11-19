@@ -3,4 +3,59 @@
 
 \minitoc
 
-\note{À venir}
+\section*{Calcul vectoriel}
+\addcontentsline{toc}{section}{Calcul vectoriel}
+
+On a les formules suivantes :
+
+\begin{itemize}
+    \item \(\rot\grad V=\v{0}\) \\
+    \item \(\div\rot\v{A}=0\) \\
+    \item \(\div\grad V=\lap V\) \\
+    \item \(\rot\rot\v{A}=\grad\div\v{A}-\lap\v{A}\) \\
+    \item \(\grad\paren{V_1V_2}=V_1\grad V_2+V_2\grad V_1\) \\
+    \item \(\rot\paren{V\v{A}}=V\rot\v{A}+\grad V\vecto\v{A}\) \\
+    \item \(\div\paren{V\v{A}}=V\div\v{A}+\grad V\scal\v{A}\) \\
+    \item \(\div\paren{\v{A}_1\vecto\v{A}_2}=\v{A}_2\scal\rot\v{A}_1-\v{A}_1\scal\rot\v{A}_2\)
+\end{itemize}
+
+\section*{Coordonnées cartésiennes}
+\addcontentsline{toc}{section}{Coordonnées cartésiennes}
+
+On a les formules suivantes :
+
+\begin{itemize}
+    \item \(\grad V=\pdv{V}{x}\v{u}_x+\pdv{V}{y}\v{u}_y+\pdv{V}{z}\v{u}_z\) \\
+    \item \(\div\v{A}=\pdv{A_x}{x}+\pdv{A_y}{y}+\pdv{A_z}{z}\) \\
+    \item \(\rot\v{A}=\paren{\pdv{A_z}{y}-\pdv{A_y}{z}}\v{u}_x+\paren{\pdv{A_x}{z}-\pdv{A_z}{x}}\v{u}_y+\paren{\pdv{A_y}{x}-\pdv{A_x}{y}}\v{u}_z\) \\
+    \item \(\lap V=\pdv[order=2]{V}{x}+\pdv[order=2]{V}{y}+\pdv[order=2]{V}{z}\)
+\end{itemize}
+
+\section*{Coordonnées cylindriques}
+\addcontentsline{toc}{section}{Coordonnées cylindriques}
+
+On a les formules suivantes :
+
+\begin{itemize}
+    \item \(\grad V=\pdv{V}{r}\v{u}_r+\dfrac{1}{r}\pdv{V}{\theta}\v{u}_\theta+\pdv{V}{z}\v{u}_z\) \\
+    \item \(\div\v{A}=\dfrac{1}{r}\pdv{rA_r}{r}+\dfrac{1}{r}\pdv{A_\theta}{\theta}+\pdv{A_z}{z}\) \\
+    \item \(\rot\v{A}=\paren{\dfrac{1}{r}\pdv{A_z}{\theta}-\pdv{A_\theta}{z}}\v{u}_r+\paren{\pdv{A_r}{z}-\pdv{A_z}{r}}\v{u}_\theta+\dfrac{1}{r}\paren{\pdv{rA_\theta}{r}-\pdv{A_r}{\theta}}\v{u}_z\) \\
+    \item \(\lap V=\dfrac{1}{r}\pdv{}{r}\paren{r\pdv{V}{r}}+\dfrac{1}{r^2}\pdv[order=2]{V}{\theta}+\pdv[order=2]{V}{z}\)
+\end{itemize}
+
+\section*{Coordonnées sphériques}
+\addcontentsline{toc}{section}{Coordonnées sphériques}
+
+\begin{itemize}
+    \item \(\grad V=\pdv{V}{r}\v{u}_r+\dfrac{1}{r}\pdv{V}{\theta}\v{u}_\theta+\dfrac{1}{r\sin\theta}\pdv{V}{\phi}\v{u}_\phi\) \\
+    \item \(\div\v{A}=\dfrac{1}{r^2}\pdv{r^2A_r}{r}+\dfrac{1}{r\sin\theta}\pdv{\sin\paren{\theta}A_\theta}{\theta}+\dfrac{1}{r\sin\theta}\pdv{A_\phi}{\phi}\) \\
+    \item \(\rot\v{A}=\dfrac{1}{r\sin\theta}\paren{\pdv{\sin\paren{\theta}A_\phi}{\theta}-\pdv{A_\theta}{\phi}}\v{u}_r+\dfrac{1}{r}\paren{\dfrac{1}{\sin\theta}\pdv{A_r}{\phi}-\pdv{rA_\phi}{r}}\v{u}_\theta+\dfrac{1}{r}\paren{\pdv{rA_\theta}{r}-\pdv{A_r}{\theta}}\v{u}_\phi\) \\
+    \item \(\lap V=\dfrac{1}{r}\pdv[order=2]{rV}{r}+\dfrac{1}{r^2\sin\theta}\pdv{}{\theta}\paren{\sin\paren{\theta}\pdv{V}{\theta}}+\dfrac{1}{r^2\sin^2\theta}\pdv[order=2]{V}{\phi}\)
+\end{itemize}
+
+\section*{Théorèmes}
+\addcontentsline{toc}{section}{Théorèmes}
+
+Théorème d'Ostrogradsky-Green : \(S\) étant une surface fermée et \(\tau\) le volume intérieur à \(S\), on a \[\oint_S\v{A}\scal\odif{\v{S}}=\int_\tau\paren{\div\v{A}}\odif{\tau}.\]
+
+Théorème de Stokes-Ampère : \(C\) étant une courbe fermée bordant une surface \(S\), on a \[\oint_C\v{A}\scal\odif{\v{l}}=\int_S\paren{\rot\v{A}}\scal\odif{\v{S}}.\]

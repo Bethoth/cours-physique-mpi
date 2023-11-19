@@ -519,6 +519,12 @@ pdfauthor=Romain Bricout
 
 \newcommand{\call}[1]{\mathscr{#1}}
 
+\DeclareMathOperator{\rot}{\v{\mathrm{rot}}}
+\DeclareMathOperator{\grad}{\v{\mathrm{grad}}}
+\let\div\relax % workaround to redeclare
+\DeclareMathOperator{\div}{\mathrm{div}}
+\DeclareMathOperator{\lap}{\Delta}
+
 \begin{document}
 \renewcommand{\labelitemi}{\(\triangleright\)}
 \renewcommand{\labelenumi}{(\arabic{enumi})}
