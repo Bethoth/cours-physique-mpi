@@ -1,0 +1,838 @@
+\chapter{Référentiels non-galiléens}
+
+\minitoc
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+Rappel :
+
+Un référentiel est un système de trois axes de coordonnées lié à un solide de référence (l'observateur) et munie d'une horloge mesurant le temps.
+
+Un référentiel est dit galiléen (ou inertiel) si le principe d'inertie y est vérifié.
+
+Tout référentiel en translation rectiligne uniforme par rapport à un référentiel galiléen est galiléen. Le principe fondamental de la dynamique et le principe d'inertie y sont vérifiés.
+
+Cependant, il est parfois judicieux d'analyser le mouvement d'un solide qui a un mouvement quelconque dans un référentiel galiléen dans un autre référentiel où le mouvement se décrit simplement.
+
+Par exemple, dans le référentiel terrestre, la valve d'une roue de vélo qui tourne a une trajectoire cycloïdale alors que dans le référentiel de la roue, elle a une trajectoire circulaire.
+
+\section{Changement de référentiel}
+
+\subsection{Loi de composition des vitesses}
+
+\subsubsection{Cas général}
+
+Soient deux référentiels \(R\) et \(R\prim\) associés à deux repères \(\paren{Ox,Oy,Oz}\) et \(\paren{O\prim x\prim,O\prim y\prim,O\prim z\prim}\) et munis d'horloges identiques \(H\) et \(H\prim\).
+
+Dans le cadre de la cinématique classique (\ie non-relativiste), \(H=H\prim\) donc \(t=t\prim\) : le temps est absolu.
+
+C'est valable si \(v\ll c\) (en pratique, \(v<\num{0.1}c\)).
+
+\begin{center}
+\begin{tikzpicture}[scale=2,tdplot_main_coords]
+\coordinate (O) at (0,0,0) node[left] {\(O\)};
+\draw[axe] (O) -- ++(2,0,0) node[anchor=north east] {\(x\)};
+\draw[axe] (O) -- ++(0,2,0) node[anchor=north west] {\(y\)};
+\draw[axe] (O) -- ++(0,0,2) node[anchor=south] {\(z\)};
+
+\coordinate (O') at (0,5,0);
+\draw[axe] (O') -- ++(2,0,0) node[anchor=north east] {\(x\prim\)};
+\draw[axe] (O') -- ++(0,2,0) node[anchor=north west] {\(y\prim\)};
+\draw[axe] (O') -- ++(0,0,2) node[anchor=south] {\(z\prim\)};
+\node[left] at (O') {\(O\prim\)};
+
+\coordinate (M) at (1,6.5,1.5);
+\filldraw (M) circle (1pt);
+\node[above right] at (M) {\(M\)};
+
+\draw (O) -- (M) -- (O');
+\end{tikzpicture}
+\end{center}
+
+On a \(\v{OM}=\v{OO\prim}+\v{O\prim M}\).
+
+On dérive dans \(R\) :
+
+On a \[\v{OM}=\v{OO\prim}+x\prim\v{u}_{x\prim}+y\prim\v{u}_{y\prim}+z\prim\v{u}_{z\prim}\] avec \(\paren{\v{u}_{x\prim},\v{u}_{y\prim},\v{u}_{z\prim}}\) une base orthonormale directe de \(R\prim\).
+
+D'où \[\begin{aligned}
+\odv{\v{OM}}{t}_R=\odv{\v{OO\prim}}{t}_R&+\odv{x\prim}{t}\v{u}_{x\prim}+\odv{y\prim}{t}\v{u}_{y\prim}+\odv{z\prim}{t}\v{u}_{z\prim} \\
+&+x\prim\odv{\v{u}_{x\prim}}{t}_R+y\prim\odv{\v{u}_{y\prim}}{t}_R+z\prim\odv{\v{u}_{z\prim}}{t}_R
+\end{aligned}\]
+
+On obtient donc la loi de composition des vitesses : \[\textcolor{red}{\v{v}\paren{M}_R=\v{v}\paren{M}_{R\prim}+\v{v}_e}\] où \begin{description}
+    \item[] \(\v{v}_e=\underbrace{\odv{\v{OO\prim}}{t}}_{\substack{\text{déplacement} \\ \text{de }R\prim \\ \text{par rapport } \\ \text{à }R}}+\underbrace{x\prim\odv{\v{u}_{x\prim}}{t}_R+y\prim\odv{\v{u}_{y\prim}}{t}_R+z\prim\odv{\v{u}_{z\prim}}{t}_R}_{\text{rotation de }R\prim\text{ par rapport à }R}\) est la vitesse d'entraînement.
+\end{description}
+
+\subsubsection{Cas de \(R\prim\) en translation par rapport à \(R\)}
+
+Si \(R\prim\) est en translation par rapport à \(R\) alors ils partagent la même base donc \(\paren{\v{u}_x,\v{u}_y,\v{u}_z}=\paren{\v{u}_{x\prim},\v{u}_{y\prim},\v{u}_{z\prim}}\).
+
+Donc \[\v{v}_e=\odv{\v{OO\prim}}{t}\]
+
+La vitesse d'entraînement est indépendante du point étudié (tous les points de \(R\prim\) sont entraînés à la même vitesse).
+
+\subsubsection{Cas de \(R\prim\) en rotation uniforme autour d'un axe fixe de \(R\)}
+
+\begin{center}
+\begin{tikzpicture}[scale=2,tdplot_main_coords]
+\coordinate (O) at (0,0,0);
+\draw[axe] (O) -- ++(2,0,0) node[anchor=north east] {\(x\)};
+\draw[axe] (O) -- ++(0,2,0) node[anchor=north west] {\(y\)};
+\draw[axe] (O) -- ++(0,0,2) node[anchor=south east] {\(z\)};
+\node[left] at (O) {\(O\)};
+\node[above right, blue] at (O) {\(O\prim\)};
+\tdplotdrawarc[->]{(O)}{1.5}{0}{20}{anchor=north}{\(\theta\)};
+\tdplotsetrotatedcoords{20}{0}{0};
+\draw[tdplot_rotated_coords,axe,color=blue] (O) -- ++(2,0,0) node[anchor=north] {\(x\prim\)};
+\draw[tdplot_rotated_coords,axe,color=blue] (O) -- ++(0,2,0) node[anchor=south west] {\(y\prim\)};
+\draw[tdplot_rotated_coords,axe,color=blue] (O) -- ++(0,0,2) node[anchor=south west] {\(z\prim\)};
+\end{tikzpicture}
+\end{center}
+
+On pose \(\omega=\dot{\theta}=\cte\) (rotation uniforme).
+
+On a \(\odv{\v{OO\prim}}{t}=\v{0}\) et comme \(\v{u}_{z\prim}=\v{u}_z\) on a \(\odv{\v{u}_{z\prim}}{t}_R=\v{0}\).
+
+Déterminons \(\odv{\v{u}_{x\prim}}{t}_R\).
+
+On a \(\odv{\v{u}_{x\prim}}{t}=\underbrace{\odv{\theta}{t}}_{=\dot{\theta}=\omega}\odv{\v{u}_{x\prim}}{\theta}_R\).
+
+En projetant dans la base \(\paren{\v{u}_x,\v{u}_y}\), on obtient \[\begin{dcases}
+\v{u}_{x\prim}=\cos\theta\v{u}_x+\sin\theta\v{u}_y \\
+\v{u}_{y\prim}=-\sin\theta\v{u}_x+\cos\theta\v{u}_y
+\end{dcases}\]
+
+Donc \(\odv{\v{u}_{x\prim}}{t}_R=\omega\v{u}_{y\prim}\).
+
+De même : \(\odv{\v{u}_{y\prim}}{t}_R=-\omega\v{u}_{x\prim}\).
+
+Donc \[\begin{aligned}
+\v{v}_e&=x\prim\odv{\v{u}_{x\prim}}{t}_R+y\prim\odv{\v{u}_{y\prim}}{t}_R \\
+&=x\prim\omega\v{u}_{y\prim}-y\prim\omega\v{u}_{x\prim}
+\end{aligned}\]
+
+On pose \(\v{\omega}\) le vecteur rotation de \(R\prim\) par rapport à \(R\) : \(\v{\omega}=\omega\v{u}_z\)
+
+On a alors \[\odv{\v{u}_{x\prim}}{t}_R=\v{\omega}\vecto\v{u}_{x\prim}\qquad\odv{\v{u}_{y\prim}}{t}_R=\v{\omega}\vecto\v{u}_{y\prim}\]
+
+Donc \[\begin{WithArrows}
+\v{v}_e&=x\prim\paren{\v{\omega}\vecto\v{u}_{x\prim}}+y\prim\paren{\v{\omega}\vecto\v{u}_{y\prim}} \Arrow{linéarité de \(\vecto\)} \\
+&=\v{\omega}\vecto\paren{x\prim\v{u}_{x\prim}+y\prim\v{u}_{y\prim}} \Arrow{\(\v{\omega}\vecto\v{u}_z=\v{0}\)} \\
+&=\v{\omega}\vecto\underbrace{\paren{x\prim\v{u}_{x\prim}+y\prim\v{u}_{y\prim}+z\v{u}_z}}_{=\v{OM}}
+\end{WithArrows}\]
+
+D'où \[\textcolor{red}{\v{v}_e=\v{\omega}\vecto\v{OM}}\]
+
+\subsection{Loi de composition des accélérations}
+
+\subsubsection{Cas général}
+
+On a \[\begin{WithArrows}
+\v{v}\paren{M}_R&=\odv{\v{OO\prim}}{t} \\
+&\textcolor{white}{=}+\odv{x\prim}{t}\v{u}_{x\prim}+\odv{y\prim}{t}\v{u}_{y\prim}+\odv{z\prim}{t}\v{u}_{z\prim} \\
+&\textcolor{white}{=}+x\prim\odv{\v{u}_{x\prim}}{t}_R+y\prim\odv{\v{u}_{y\prim}}{t}_R+z\prim\odv{\v{u}_{z\prim}}{t}_R \Arrow{\(\odv{}{t}_R\)} \\
+\v{a}\paren{M}_R=\odv{\v{v}\paren{M}_R}{t}_R&=\textcolor{blue}{\odv[order=2]{\v{OO\prim}}{t}_R} \\
+&\textcolor{white}{=}\textcolor{blue}{+x\prim\odv[order=2]{\v{u}_{x\prim}}{t}_R+y\prim\odv[order=2]{\v{u}_{y\prim}}{t}_R+z\prim\odv[order=2]{\v{u}_{z\prim}}{t}_R} \\
+&\textcolor{white}{=}\textcolor{red}{+2\odv{x\prim}{t}\odv{\v{u}_{x\prim}}{t}_R+2\odv{y\prim}{t}\odv{\v{u}_{y\prim}}{t}_R+2\odv{z\prim}{t}\odv{\v{u}_{z\prim}}{t}_R} \\
+&\textcolor{white}{=}\textcolor{Green}{+\odv[order=2]{x\prim}{t}\v{u}_{x\prim}+\odv[order=2]{y\prim}{t}\v{u}_{y\prim}+\odv[order=2]{z\prim}{t}\v{u}_{z\prim}}
+\end{WithArrows}\]
+
+Donc \[\v{a}\paren{M}_R=\textcolor{blue}{\v{a}_e}+\textcolor{red}{\v{a}_C}+\textcolor{Green}{\v{a}\paren{M}_{R\prim}}\] où \begin{description}
+    \item[] \(\v{a}_e\) est l'accélération d'entraînement \\
+    \item[] \(\v{a}_C\) est l'accélération de Coriolis \\
+    \item[] \(\v{a}\paren{M}_{R\prim}\) est l'accélération relative de \(M\) dans \(R\prim\).
+\end{description}
+
+\subsubsection{Cas de \(R\prim\) en translation par rapport à \(R\)}
+
+On a \(\v{u}_{x\prim}=\v{u}_x\), \(\v{u}_{y\prim}=\v{u}_y\) et \(\v{u}_{z\prim}=\v{u}_z\).
+
+Donc \(\odv{\v{u}_{x\prim}}{t}_R=\v{0}\) et \(\odv[order=2]{\v{u}_{x\prim}}{t}_R=\v{0}\). Idem pour \(\v{u}_{y\prim}\) et \(\v{u}_{z\prim}\).
+
+\attention \(O\prim\) n'est pas nécessairement en translation par rapport à \(O\).
+
+On a donc \(\v{a}_C=\v{0}\) et \(\v{a}_e=\odv[order=2]{\v{OO\prim}}{t}_R\) donc \[\v{a}\paren{M}_R=\v{a}\paren{M}_{R\prim}+\odv[order=2]{\v{OO\prim}}{t}_R\]
+
+On remarque que l'accélération d'entraînement ne dépend pas du point de \(R\prim\) étudié.
+
+\subsubsection{Cas de \(R\prim\) en rotation uniforme autour d'un axe fixe de \(R\)}
+
+\begin{center}
+\begin{tikzpicture}[scale=2,tdplot_main_coords]
+\coordinate (O) at (0,0,0);
+\draw[axe] (O) -- ++(2,0,0) node[anchor=north east] {\(x\)};
+\draw[axe] (O) -- ++(0,2,0) node[anchor=north west] {\(y\)};
+\draw[axe] (O) -- ++(0,0,2) node[anchor=south east] {\(z\)};
+\node[left] at (O) {\(O\)};
+\node[above right, blue] at (O) {\(O\prim\)};
+\tdplotdrawarc[->]{(O)}{1.5}{0}{20}{anchor=north}{\(\theta\)};
+\tdplotsetrotatedcoords{20}{0}{0};
+\draw[tdplot_rotated_coords,axe,color=blue] (O) -- ++(2,0,0) node[anchor=north] {\(x\prim\)};
+\draw[tdplot_rotated_coords,axe,color=blue] (O) -- ++(0,2,0) node[anchor=south west] {\(y\prim\)};
+\draw[tdplot_rotated_coords,axe,color=blue] (O) -- ++(0,0,2) node[anchor=south west] {\(z\prim\)};
+\end{tikzpicture}
+\end{center}
+
+On pose \(\omega=\dot{\theta}=\cte\) et le vecteur rotation \(\v{\omega}=\omega\v{u}_z\).
+
+On a \[\v{a}_e=\cancelto{\v{0}}{\odv[order=2]{\v{OO\prim}}{t}_R}+x\prim\odv[order=2]{\v{u}_{x\prim}}{t}_R+y\prim\odv[order=2]{\v{u}_{y\prim}}{t}_R+\cancelto{\v{0}}{z\odv[order=2]{\v{u}_z}{t}_R}\]
+
+On avait \(\odv{\v{u}_{x\prim}}{t}_R=\v{\omega}\vecto\v{u}_{x\prim}\) donc \(\odv[order=2]{\v{u}_{x\prim}}{t}_R=\v{\omega}\vecto\paren{\v{\omega}\vecto\v{u}_{x\prim}}\)
+
+Donc \[\begin{WithArrows}
+\v{a}_e&=x\prim\v{\omega}\vecto\paren{\v{\omega}\vecto\v{u}_{x\prim}}+y\prim\v{\omega}\vecto\paren{\v{\omega}\vecto\v{u}_{y\prim}} \Arrow{linéarité de \(\vecto\)} \\
+&=\v{\omega}\vecto\paren{\v{\omega}\vecto\paren{x\prim\v{u}_{x\prim}+y\prim\v{u}_{y\prim}}} \Arrow{\(\v{\omega}\vecto\v{u}_z=\v{0}\)} \\
+&=\v{\omega}\vecto\paren{\v{\omega}\vecto\paren{x\prim\v{u}_{x\prim}+y\prim\v{u}_{y\prim}+z\v{u}_z}}
+\end{WithArrows}\]
+
+D'où \[\v{a}_e=\v{\omega}\vecto\paren{\v{\omega}\vecto\v{OM}}.\]
+
+On se place dans une base cylindrique et on note \(H\) le projeté de \(M\) sur \(\paren{Oz}\) :
+
+\begin{center}
+\begin{tikzpicture}[scale=1.6,tdplot_main_coords]
+\coordinate (O) at (0,0,0);
+\draw[axe] (O) -- ++(2,0,0) node[anchor=north east] {\(x\)};
+\draw[axe] (O) -- ++(0,2,0) node[anchor=north west] {\(y\)};
+\draw[axe] (O) -- ++(0,0,2) node[anchor=south east] {\(z\)};
+\node[left] at (O) {\(O=\textcolor{blue}{O\prim}\)};
+\tdplotdrawarc[->]{(O)}{1.5}{0}{20}{anchor=north}{\(\theta\)};
+\tdplotsetrotatedcoords{20}{0}{0};
+\draw[tdplot_rotated_coords,axe,color=blue] (O) -- ++(2,0,0) node[anchor=north] {\(x\prim\)};
+\draw[tdplot_rotated_coords,axe,color=blue] (O) -- ++(0,2,0) node[anchor=south west] {\(y\prim\)};
+\draw[tdplot_rotated_coords,axe,color=blue] (O) -- ++(0,0,2) node[anchor=south west] {\(z\prim\)};
+\tdplotsetcoord{M}{2.7}{50}{50};
+\filldraw (M) circle (1pt);
+\node[above right] at (M) {\(M\)};
+\draw[dashed] (M) -- (Mz) node[left] {\(H\)};
+\draw[dashed] (M) -- (Mxy) -- (O) node[midway, above right] {\(r\)};
+\tdplotsetthetaplanecoords{50};
+\draw[tdplot_rotated_coords,->,color=blue] (O) -- ++(0,1,0) node[below,blue] {\(\v{u}_r\)};
+\draw[tdplot_rotated_coords,->,color=blue] (O) -- ++(0,0,1) node[above left,blue] {\(\v{u}_\theta\)};
+\end{tikzpicture}
+\end{center}
+
+On a \(\v{OM}=r\v{u}_r+z\v{u}_z=\v{HM}+z\v{u}_z\).
+
+De plus \[\begin{aligned}
+\v{a}_e&=\v{\omega}\vecto\paren{\v{\omega}\vecto\paren{r\v{u}_r+z\v{u}_z}} \\
+&=\v{\omega}\vecto\paren{\v{\omega}\vecto r\v{u}_r} \\
+&=\v{\omega}\vecto\omega r\v{u}_\theta \\
+&=-\omega^2r\v{u}_r
+\end{aligned}\]
+
+Donc \[\textcolor{red}{\v{a}_e=-\omega^2\v{HM}}\] où \(H\) est le projeté de \(M\) sur l'axe de rotation.
+
+Remarques : \begin{itemize}
+    \item \(\v{a}_e\) dépend de la position de \(M\) dans \(R\prim\) et de \(\norme{\v{HM}}\) (distance à l'axe de rotation). \\
+    \item \(\v{a}_e\) est dirigée vers l'axe de rotation (accélération centripète). \\
+\end{itemize}
+
+Déterminons maintenant \(\v{a}_C\) : \[\begin{WithArrows}
+\v{a}_C&=2\paren{\odv{x\prim}{t}\odv{\v{u}_{x\prim}}{t}_R+\odv{y\prim}{t}\odv{\v{u}_{y\prim}}{t}_R+\odv{z\prim}{t}\cancelto{\v{0}}{\odv{\v{u}_{z\prim}}{t}_R}} \\
+&=2\paren{\odv{x\prim}{t}\v{\omega}\vecto\v{u}_{x\prim}+\odv{y\prim}{t}\v{\omega}\vecto\v{u}_{y\prim}} \Arrow{linéarité de \(\vecto\)} \\
+&=2\v{\omega}\vecto\paren{\odv{x\prim}{t}\v{u}_{x\prim}+\odv{y\prim}{t}\v{u}_{y\prim}} \Arrow{\(\v{\omega}\vecto\v{u}_{z\prim}=\v{0}\)} \\
+&=2\v{\omega}\vecto\paren{\odv{x\prim}{t}\v{u}_{x\prim}+\odv{y\prim}{t}\v{u}_{y\prim}+\odv{z\prim}{t}\v{u}_{z\prim}}
+\end{WithArrows}\]
+
+D'où \[\textcolor{red}{\v{a}_C=2\v{\omega}\vecto\v{v}\paren{M}_{R\prim}}\]
+
+Remarques : \begin{itemize}
+    \item Si \(\v{v}\paren{M}_{R\prim}=\v{0}\) alors \(\v{a}_C=\v{0}\). \\
+    \item La direction de \(\v{a}_C\) dépend de \(\v{v}\paren{M}_{R\prim}\). \\
+\end{itemize}
+
+Exercice/exemple : calculons l'accélération d'entraînement du référentiel terrestre par rapport au référentiel géocentrique à Limoges (latitude \(\lambda=\SI{49}{\degree}N\)).
+
+\begin{center}
+\tdplotsetmaincoords{80}{90}
+\begin{tikzpicture}[scale=2,tdplot_main_coords]
+\coordinate (O) at (0,0,0);
+\draw[thick] (O) -- ++(0,2,0);
+\draw[thick] (O) -- ++(0,0,2) node[anchor=south] {\(z\) : axe des pôles};
+\node[left] at (O) {\(O\)};
+\begin{scope}[tdplot_screen_coords]
+\fill[ball color=gray!20, opacity=0.25] (O) circle (1.5);
+\end{scope}
+\draw (O) circle[radius=1.5];
+\draw[dashed] (0,0,0.99) circle[radius=1.13];
+\tdplotsetthetaplanecoords{90};
+\tdplotdrawarc[tdplot_rotated_coords]{(O)}{0.4}{90}{49}{anchor=west}{\(\lambda\)};
+\tdplotsetcoord{L}{1.5}{49}{90};
+\draw[dashed,red] (O) -- (L) node[anchor=south west] {\(L\)};
+\filldraw[red] (L) circle (1pt);
+\draw[dashed] (L) -- (Lz) node[anchor=east] {\(H\)};
+\node[anchor=north] at (2,0,0) {plan équatorial};
+\draw[thick] (L) -- ++(0,0.5,0);
+\draw[thick] (L) -- ++(0,0,0.5);
+\end{tikzpicture}
+\end{center}
+
+Le référentiel terrestre est en rotation uniforme par rapport au référentiel géocentrique : \(\v{\omega}=\omega\v{u}_z\).
+
+\(H\) est le projeté de \(L\) sur \(Oz\).
+
+On a \(\v{a}_e=-\omega^2\v{HL}\) donc \(\norme{\v{a}_e}=\omega^2HL\).
+
+Or \(\omega=\dfrac{2\pi}{T}\) avec \(T\) la durée du jour sidéral (\(\SI{23}{\hour}\) et \(\SI{56}{\min}\)).
+
+Donc \(\omega=\SI{7.29e-5}{\radian\per\second}\).
+
+On note \(R_T=\SI{6400}{\kilo\metre}\) le rayon de la Terre.
+
+On a \(HL=R_T\cos\lambda\).
+
+Donc \(a_e=\SI{2.7e-2}{\metre\per\second\squared}\).
+
+On compare à \(g=\SI{10}{\metre\per\second\squared}\) : \(\dfrac{a_e}{g}=\num{2.7e-3}\ll1\).
+
+Il est donc difficile de mettre en évidence l'effet de \(\v{a}_e\) du référentiel terrestre par rapport au référentiel géocentrique.
+
+Remarque : l'accélération d'entraînement est nulle aux pôles et maximale à l'équateur.
+
+\section{Notion de forces d'inertie}
+
+\subsection{Cas général}
+
+Soient \(R_g\) un référentiel galiléen et \(R\) un référentiel d'étude quelconque.
+
+On a \[\begin{dcases}
+\v{v}\paren{M}_{R_g}=\v{v}\paren{M}_R+\v{v}_e \\
+\v{a}\paren{M}_{R_g}=\v{a}\paren{M}_R+\v{a}_e+\v{a}_C
+\end{dcases}\]
+
+Soit un point \(M\) de masse \(m\) soumis à un ensemble de forces \(\v{F}\) dans \(R_g\).
+
+Comme \(R_g\) est galiléen, on applique le principe fondamental de la dynamique : \(m\v{a}\paren{M}_{R_g}=\v{F}\).
+
+On applique la loi de composition des accélérations et on obtient : \(m\paren{\v{a}\paren{M}_R+\v{a}_e+\v{a}_C}=\v{F}\), \cad : \[m\v{a}\paren{M}_R=\v{F}-m\v{a}_e-m\v{a}_C.\]
+
+Donc dans un référentiel non-galiléen, le principe fondamental de la dynamique s'écrit avec deux termes supplémentaires :
+
+\begin{itemize}
+    \item \(\v{F}_{ie}=-m\v{a}_e\) : force d'inertie d'entraînement ; \\
+    \item \(\v{F}_{iC}=-m\v{a}_C\) : force d'inertie de Coriolis. \\
+\end{itemize}
+
+Remarque : \(\v{F}\) sont des forces véritables, elles ont une origine physique ; \(\v{F}_{ie}\) et \(\v{F}_{iC}\) sont des pseudo-forces dont l'origine est le caractère non-galiléen de \(R\).
+
+Remarque : on a \(\v{F}_{iC}=-2m\v{\omega}\vecto\v{v}\paren{M}_R\) donc \(\v{F}_{iC}\not=\v{0}\) si \(R\) est en rotation par rapport à \(R_g\) et si \(M\) est en mouvement dans \(R\).
+
+\subsection{Cas de \(R\) en translation par rapport à \(R_g\)}
+
+Soit un point \(M\) de masse \(m\) accroché au plafond d'un ascenseur en mouvement vertical rectiligne.
+
+\begin{center}
+\tdplotsetmaincoords{70}{110}
+\begin{tikzpicture}[scale=1.2,tdplot_main_coords]
+\coordinate (O) at (0,0,0);
+\draw[thick,->] (O) -- ++(1,0,0);
+\draw[thick,->] (O) -- ++(0,1,0);
+\draw[thick,->] (O) -- ++(0,0,1);
+\node[above left] at (O) {\(R\)};
+\draw (O) -- ++(0,3,0) -- ++(0,0,-4) -- ++(0,-3,0) -- ++(0,0,4);
+\draw (0,1.5,0) -- ++(0,0,-1.5) coordinate (M) node[right] {\(M\)};
+\filldraw (M) circle (1pt);
+\draw[red,->] (M) -- ++(0,0,-1) node[left] {\(\v{P}\)};
+\draw[red,->] (M) -- ++(0,0,1) node[left] {\(\v{T}\)};
+\draw[green, ->] (0,1.5,0) -- ++(0,0,1.5) node[left] {\(\v{v}_e\)};
+\draw[violet,->] (0,4,2) -- ++(0,0,-1) node[left] {\(\v{g}\)};
+\coordinate (O') at (0,0,-6);
+\draw[thick,->] (O') -- ++(1,0,0);
+\draw[thick,->] (O') -- ++(0,1,0);
+\draw[thick,->] (O') -- ++(0,0,1);
+\node[above left] at (O') {\(R_g\)};
+\end{tikzpicture}
+\end{center}
+
+Système : \(M\paren{m}\).
+
+Référentiel : \(R\) non-galiléen.
+
+Bilan des forces : \(\v{P}\) et \(\v{T}\).
+
+\PFD : \(m\v{a}=\v{P}+\v{T}-m\v{a}_e\) (\(\v{F}_{iC}=\v{0}\)) où \begin{description}
+    \item[] \(\v{a}_e\) est l'accélération d'entraînement de l'ascenseur par rapport à \(R_g\) \\
+    \item[] \(\v{a}\) est l'accélération de \(M\) dans \(R\) donc ici \(\v{a}=\v{0}\) \\
+    \item[] \(\v{P}=m\v{g}\). \\
+\end{description}
+
+Donc \(\v{0}=m\v{g}+\v{T}-m\v{a}_e\)
+
+Donc \(\v{T}=m\paren{\v{a}_e-\v{g}}\).
+
+On définit alors le poids apparent \(\v{P}\prim=-\v{T}=m\paren{\v{g}-\v{a}_e}=m\v{g}\prim\) où \(\v{g}\prim\) est le champ de pesanteur apparent.
+
+Si l'ascenseur accélère vers le haut alors \(g\prim=g-a_e>g\).
+
+Si l'ascenseur accélère vers le bas alors \(g\prim=g-a_e<g\).
+
+Si l'ascenseur est en chute libre alors \(\v{g}=\v{a}_e\) donc \(\v{g}\prim=\v{0}\) : on est en chute libre dans l'ascenseur.
+
+Conclusion : travailler dans un référentiel non-galiléen qui est en translation rectiligne par rapport au référentiel terrestre (galiléen) revient à remplacer \(\v{g}\) par \(\v{g}\prim=\v{g}-\v{a}_e\).
+
+\attention \(\v{g}\) et \(\v{a}_e\) ne sont pas forcément colinéaires.
+
+Exemple : voiture qui accélère.
+
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) -- (0,1) -- (2,1) -- (3,2) -- (5,2) -- (6,1) -- (8,1) -- (8,0) -- (0,0);
+\draw (2,-0.5) circle (0.5);
+\draw (6,-0.5) circle (0.5);
+\draw[green,->] (7,1.5) -- (9,1.5) node[above] {\(\v{v}_e\)};
+\draw[green,->] (7,-1.5) -- (9,-1.5) node[below] {\(\v{a}_e\)};
+\coordinate (O) at (5.5,1.5);
+\draw (O) -- ++(225:1) coordinate (M);
+\draw[dashed] (O) -- ++(0,-1) coordinate (A);
+\pic[draw,<-,"\(\alpha\)",angle eccentricity=1.5] {angle=M--O--A};
+\filldraw (M) circle (1pt);
+\draw[violet,->] (M) -- ++(0,-2) coordinate (B) node[right] {\(\v{g}\)};
+\draw[green,->] (B) -- ++(-2,0) coordinate (C) node[below] {\(-\v{a}_e\)};
+\draw[violet,->] (M) -- (C) node[above] {\(\v{g}\prim\)};
+\pic[draw,<-,"\(\alpha\)",angle eccentricity=2] {angle=C--M--B};
+\end{tikzpicture}
+\end{center}
+
+Avec \(\alpha=\Arctan\dfrac{a_e}{g}\).
+
+\subsection{Cas de \(R\) en rotation uniforme autour d'un axe fixe de \(R_g\)}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.6,tdplot_main_coords]
+\coordinate (O) at (0,0,0);
+\draw[axe] (O) -- ++(2,0,0) node[anchor=north east] {\(x\)};
+\draw[axe] (O) -- ++(0,2,0) node[anchor=north west] {\(y\)};
+\draw[axe] (O) -- ++(0,0,2) node[anchor=south east] {\(z\)};
+\node[left] at (O) {\(O=\textcolor{blue}{O\prim}\)};
+\tdplotdrawarc[->]{(O)}{1.5}{0}{20}{anchor=north}{\(\theta\)};
+\tdplotsetrotatedcoords{20}{0}{0};
+\draw[tdplot_rotated_coords,axe,color=blue] (O) -- ++(2,0,0) node[anchor=north] {\(x\prim\)};
+\draw[tdplot_rotated_coords,axe,color=blue] (O) -- ++(0,2,0) node[anchor=south west] {\(y\prim\)};
+\draw[tdplot_rotated_coords,axe,color=blue] (O) -- ++(0,0,2) node[anchor=south west] {\(z\prim\)};
+\tdplotsetcoord{M}{2.7}{50}{50};
+\filldraw (M) circle (1pt);
+\node[above right] at (M) {\(M\)};
+\draw[dashed] (M) -- (Mz) node[left] {\(H\)};
+\draw[dashed] (M) -- (Mxy) -- (O) node[midway, above right] {\(r\)};
+\tdplotsetthetaplanecoords{50};
+\draw[tdplot_rotated_coords,->,color=blue] (O) -- ++(0,1,0) node[below,blue] {\(\v{u}_r\)};
+\draw[tdplot_rotated_coords,->,color=blue] (O) -- ++(0,0,1) node[above left,blue] {\(\v{u}_\theta\)};
+\end{tikzpicture}
+\end{center}
+
+On pose \(\v{\omega}=\dot{\theta}\v{u}_z\).
+
+On a \(\v{a}_e=\v{\omega}\vecto\paren{\v{\omega}\vecto\v{OM}}=-\omega^2\v{HM}\) avec \(H\) le projeté de \(M\) sur \(\paren{Oz}\).
+
+Donc \(\v{F}_{ie}=-m\v{a}_e=m\omega^2\v{HM}\) (effet centrifuge).
+
+Exemple : pendule conique.
+
+Soit un point \(M\) de masse \(m\) attaché à un fil de longueur \(l\).
+
+\begin{center}
+\begin{tikzpicture}[scale=1.6,tdplot_main_coords]
+\coordinate (C) at (0,0,0);
+\draw[axe] (C) -- ++(2,0,0) node[anchor=north east] {\(x\)};
+\draw[axe] (C) -- ++(0,2,0) node[anchor=north west] {\(y\)};
+\draw[axe] (C) -- ++(0,0,2) node[anchor=south east] {\(z\)};
+\tdplotdrawarc[->]{(C)}{1.5}{0}{50}{anchor=north}{\(\theta\)};
+\tdplotsetrotatedcoords{50}{0}{0};
+\draw[tdplot_rotated_coords,axe,color=blue] (C) -- ++(2,0,0) node[anchor=north east] {\(x\prim\)};
+\draw[tdplot_rotated_coords,axe,color=blue] (C) -- ++(0,2,0) node[anchor=south west] {\(y\prim\)};
+\draw[tdplot_rotated_coords,axe,color=blue] (C) -- ++(0,0,2) node[anchor=south west] {\(z\prim\)};
+\tdplotsetcoord{M}{2.5}{90}{50};
+\filldraw (M) circle (1pt);
+\node[above right] at (M) {\(M\)};
+\coordinate (O) at (0,0,1.5);
+\filldraw (O) circle (1pt);
+\node[anchor=south east] at (O) {\(O\)};
+\draw[thick] (O) -- (M) node[pos=0.35,right] {\(l\)};
+\tdplotdefinepoints(0,0,1.5)(0,0,0)(1.607,1.915,0);
+\tdplotdrawpolytopearc{0.5}{anchor=north}{\(\alpha\)};
+\draw[->,red] (M) -- ++(0,0,-0.981) node[anchor=east] {\(\v{P}\)};
+\tdplotsetrotatedcoords{50}{0}{0};
+\draw[->,red,tdplot_rotated_coords] (M) -- ++(0.617,0,0) node[anchor=north west] {\(\v{F}_{ie}\)};
+\draw[->,red,tdplot_rotated_coords] (M) -- ++(-0.857,0,0.514) node[anchor=east] {\(\v{T}\)};
+\draw[->,violet] (2,0,1.5) -- ++(0,0,-1) node[anchor=east] {\(\v{g}\)};
+\draw[dashed] (C) circle (2.5);
+\node[anchor=east] (C) {\(H\)};
+\end{tikzpicture}
+\end{center}
+
+\(M\) est en rotation autour de la verticale.
+
+Le référentiel \(\paren{H,x,y,z}\) est galiléen et le référentiel \(R=\paren{H,x\prim,y\prim,z\prim}\) est non-galiléen et en rotation autour de \(\paren{Hz}\).
+
+Système : \(M\paren{m}\).
+
+Référentiel : \(R\) non-galiléen.
+
+Bilan des forces : \(\v{P}=m\v{g}\) et \(\v{T}\).
+
+\PFD : \(m\v{a}=\v{P}+\v{T}+\v{F}_{ie}+\v{F}_{iC}\).
+
+Or \(\v{F}_{iC}=\v{0}\) car \(\v{v}\paren{M}_R=\v{0}\) et \(\v{F}_{ie}=m\omega^2\v{HM}\).
+
+De plus, on a \(HM=l\sin\alpha\) donc \(\v{F}_{ie}=m\omega^2l\sin\alpha\v{u}_r\).
+
+Or \(M\) est fixe dans \(R\) donc \(\v{a}=\v{0}\).
+
+Donc \(\v{0}=\v{P}+\v{T}+\v{F}_{ie}\).
+
+On a : \[\begin{aligned}
+\tan\alpha&=\dfrac{\norme{\v{F}_{ie}}}{\norme{\v{P}}} \\
+\dfrac{\sin\alpha}{\cos\alpha}&=\dfrac{m\omega^2l\sin\alpha}{mg} \\
+\omega^2&=\dfrac{g}{l\cos\alpha}>\dfrac{g}{l} \\
+\omega&>\sqrt{\dfrac{g}{l}}.
+\end{aligned}\]
+
+Le pendule conique ne peut pas tourner trop lentement : \[f_\mini=\dfrac{\omega_\mini}{2\pi}=\dfrac{1}{2\pi}\sqrt{\dfrac{g}{l}}.\]
+
+Application numérique : avec \(l=\SI{1}{\metre}\), on a \(f_\mini=\SI{0.5}{\hertz}\).
+
+Déterminons maintenant si \(\v{F}_{ie}\) et \(\v{F}_{iC}\) sont conservatives.
+
+On a \(\v{F}_{ie}=m\omega^2\v{HM}=m\omega^2r\v{u}_r\) et \(\odif{\v{OM}}=\odif{r}\v{u}_r+r\odif{\theta}\v{u}_\theta+\odif{z}\v{u}_z\) donc \[\begin{aligned}
+\fdif{W}&=\v{F}_{ie}\scal\odif{\v{OM}} \\
+&=m\omega^2r\v{u}_r\scal\paren{\odif{r}\v{u}_r+r\odif{\theta}\v{u}_\theta+\odif{z}\v{u}_z} \\
+&=m\omega^2r\odif{r} \\
+&=-\odif{\paren{\dfrac{-1}{2}m\omega^2r^2+\cte}} \\
+&=-\odif{E_p}
+\end{aligned}\] avec \(E_p=\dfrac{-1}{2}m\omega^2r^2+\cte\).
+
+Donc \(\v{F}_{ie}\) est conservative.
+
+De plus, on a \(\v{F}_{iC}=-2m\v{\omega}\vecto\v{v}\paren{M}_R\perp\v{v}\paren{M}_R\) et \(\odif{\v{OM}}=\odv{\v{OM}}{t}\odif{t}=\v{v}\paren{M}_R\odif{t}\) donc \[\begin{aligned}
+\fdif{W}&=\v{F}_{iC}\scal\odif{\v{OM}} \\
+&=0.
+\end{aligned}\]
+
+Donc \(\v{F}_{iC}\) ne travaille pas et n'a pas d'énergie potentielle associée.
+
+Reprenons l'exemple du pendule conique :
+
+\begin{center}
+\begin{tikzpicture}[scale=1.6,tdplot_main_coords]
+\coordinate (C) at (0,0,0);
+\draw[axe] (C) -- ++(2,0,0) node[anchor=north east] {\(x\)};
+\draw[axe] (C) -- ++(0,2,0) node[anchor=north west] {\(y\)};
+\draw[axe] (C) -- ++(0,0,2) node[anchor=south east] {\(z\)};
+\tdplotdrawarc[->]{(C)}{1.5}{0}{50}{anchor=north}{\(\theta\)};
+\tdplotsetrotatedcoords{50}{0}{0};
+\draw[tdplot_rotated_coords,axe,color=blue] (C) -- ++(2,0,0) node[anchor=north east] {\(x\prim\)};
+\draw[tdplot_rotated_coords,axe,color=blue] (C) -- ++(0,2,0) node[anchor=south west] {\(y\prim\)};
+\draw[tdplot_rotated_coords,axe,color=blue] (C) -- ++(0,0,2) node[anchor=south west] {\(z\prim\)};
+\tdplotsetcoord{M}{2.5}{90}{50};
+\filldraw (M) circle (1pt);
+\node[above right] at (M) {\(M\)};
+\coordinate (O) at (0,0,1.5);
+\filldraw (O) circle (1pt);
+\node[anchor=south east] at (O) {\(O\)};
+\draw[thick] (O) -- (M) node[pos=0.35,right] {\(l\)};
+\tdplotdefinepoints(0,0,1.5)(0,0,0)(1.607,1.915,0);
+\tdplotdrawpolytopearc{0.5}{anchor=north}{\(\alpha\)};
+\draw[->,red] (M) -- ++(0,0,-0.981) node[anchor=east] {\(\v{P}\)};
+\tdplotsetrotatedcoords{50}{0}{0};
+\draw[->,red,tdplot_rotated_coords] (M) -- ++(0.617,0,0) node[anchor=north west] {\(\v{F}_{ie}\)};
+\draw[->,red,tdplot_rotated_coords] (M) -- ++(-0.857,0,0.514) node[anchor=east] {\(\v{T}\)};
+\draw[->,violet] (2,0,1.5) -- ++(0,0,-1) node[anchor=east] {\(\v{g}\)};
+\draw[dashed] (C) circle (2.5);
+\node[anchor=east] (C) {\(H\)};
+\end{tikzpicture}
+\end{center}
+
+\(\v{P}\), \(\v{T}\) et \(\v{F}_{iC}\) ne travaillent pas et \(\v{F}_{ie}\) est conservative.
+
+La variable géométrique est \(\alpha\).
+
+Dans le référentiel \(R\) tournant non-galiléen, on a \(E_m=E_c+E_{p_\mathrm{pesanteur}}+E_{p_{\v{F}_{ie}}}\).
+
+Comme \(v=l\dot{\alpha}\), on a : \[E_c=\dfrac{1}{2}ml^2\dot{\alpha}^2\] et \[E_{p_\mathrm{pesanteur}}=-mgl\cos\alpha\] et \[\begin{aligned}
+E_{p_{\v{F}_{ie}}}&=\dfrac{-1}{2}m\omega^2r^2+\cancelto{0}{\cte} \\
+&=\dfrac{-1}{2}m\omega^2l^2\sin^2\alpha.
+\end{aligned}\]
+
+Donc \(E_m=\dfrac{1}{2}ml^2\dot{\alpha}^2-mgl\cos\alpha-\dfrac{1}{2}m\omega^2l^2\sin^2\alpha\).
+
+Or comme \(M\) n'est soumis à aucune force conservative, on a \(E_m=\cte\).
+
+Donc \[\begin{aligned}
+\odv{E_m}{t}&=0 \\
+ml^2\dot{\alpha}\ddot{\alpha}+mgl\dot{\alpha}\sin\alpha-ml^2\omega^2\dot{\alpha}\sin\alpha\cos\alpha&=0 \\
+l\ddot{\alpha}+g\sin\alpha-l\omega^2\sin\alpha\cos\alpha&=0
+\end{aligned}\]
+
+C'est l'équation du mouvement du pendule conique dans \(R\) autour de sa position d'équilibre.
+
+Si on considère une position d'équilibre dans \(R\), \ie \(\alpha=\cte\), on retrouve \(\omega^2=\dfrac{g}{l\cos\alpha}\).
+
+\section{Caractère galiléen approché du référentiel terrestre}
+
+\subsection{Les référentiels d'étude}
+
+Rappel : un référentiel \(R\prim\) est galiléen s'il est en translation rectiligne uniforme par rapport à un référentiel galiléen. En effet, dans ce cas, on a \(\v{F}_{ie}=\v{0}\) et \(\v{F}_{iC}=\v{0}\) donc d'après le \PFD dans \(R\prim\), on a \(m\v{a}=\v{F}\) donc le principe d'inertie est vérifié dans \(R\prim\) donc \(R\prim\) est galiléen.
+
+\subsubsection{Référentiel de Copernic}
+
+C'est le référentiel d'origine \(C\) le centre de masse du système solaire et d'axes \(\paren{Cx_g,Cy_g,Cz_g}\) dirigés vers trois étoiles lointaines considérées comme fixes car suffisamment éloignées du système solaire.
+
+Le référentiel de Copernic est le référentiel galiléen de base. Les observations astronomiques ont montré qu'une météorite se déplaçant dans l'espace suffisamment éloignée des différentes planètes a bien un mouvement de translation rectiligne uniforme.
+
+\subsubsection{Référentiel de Kepler}
+
+C'est le référentiel d'origine \(S\) le centre de masse du soleil et d'axes \(\paren{Sx_0,Sy_0,Sz_0}\) parallèles à \(\paren{Cx_g,Cy_g,Cz_g}\) dirigés vers trois étoiles lointaines considérées comme fixes car suffisamment éloignées du système solaire.
+
+En pratique, le référentiel de Kepler est quasi-galiléen et il est très difficile de mettre en évidence son caractère non-galiléen.
+
+\subsubsection{Référentiel géocentrique}
+
+C'est le référentiel d'origine \(O\) le centre de masse de la Terre et d'axes \(\paren{Ox_1,Oy_1,Oz_1}\) dirigés vers trois étoiles lointaines considérées comme fixes car suffisamment éloignées du système solaire.
+
+Si une expérience dure peu de temps devant une année, on peut considérer que la Terre se déplace en ligne droite sur son orbite et donc que le référentiel géocentrique est galiléen.
+
+\subsubsection{Référentiel terrestre local}
+
+Le référentiel terrestre local \(R_T\) est constitué d'une origine \(A\) liée au sol et à trois axes \(\paren{Ax,Ay,Az}\). Il est en rotation uniforme autour de l'axe des pôles de la Terre donc n'est pas galiléen.
+
+Si une expérience est courte devant vingt-quatre heures, on peut considérer que \(R_T\) se déplace en ligne droite par rapport au référentiel géocentrique et donc que son caractère non-galiléen est peu marqué.
+
+\begin{center}
+\tdplotsetmaincoords{80}{110}
+\begin{tikzpicture}[scale=2,tdplot_main_coords]
+\coordinate (O) at (0,0,0);
+\draw[thick] (O) -- ++(2,0,0) node[anchor=north east] {\(x_1\)};
+\draw[thick] (O) -- ++(0,2,0) node[anchor=north west] {\(y_1\)} node[above right] {\(R_\geo\)};
+\draw[thick] (O) -- ++(0,0,2) node[anchor=south] {\(z_1\)};
+\node[anchor=south east] at (O) {\(O\)};
+\begin{scope}[tdplot_screen_coords]
+\fill[ball color=gray!20, opacity=0.25] (O) circle (1.5);
+\end{scope}
+\node[above right] at (0,0,1.5) {\(N\)};
+\draw[dashed] (O) -- ++(0,0,-1.5) node[below right] {\(S\)};
+\draw[dashed,blue,decoration={markings,mark=at position 0.65 with {\arrow{>}}},postaction={decorate}] (0,0,0.99) circle[radius=1.13];
+\tdplotsetrotatedcoords{90}{49}{90};
+\tdplotsetcoord{A}{1.5}{49}{90};
+\filldraw[blue] (A) circle (1pt);
+\draw[thick,blue,tdplot_rotated_coords] (A) -- ++(0,-0.5,0);
+\draw[thick,blue,tdplot_rotated_coords] (A) -- ++(0,0,0.5) node[right] {\(R_T\) en rotation autour de \(R_\geo\)};
+\draw[thick,blue,tdplot_rotated_coords] (A) -- ++(-0.5,0,0);
+\end{tikzpicture}
+\end{center}
+
+\subsection{Mécanique dans le référentiel terrestre}
+
+\subsubsection{Statique terrestre, champ de pesanteur}
+
+On se place dans le référentiel terrestre local non-galiléen.
+
+Soit \(M\paren{m}\) accroché au plafond à l'équilibre.
+
+\begin{center}
+\begin{tikzpicture}
+\draw[ultra thick] (0,0) -- ++(4,0);
+\fill[pattern=north east lines] (0,0) -- ++(4,0) -- ++(0,0.5) -- ++(-4,0);
+\draw (2,0) -- ++(0,-2.5) coordinate (M) node[left] {\(M\)};
+\fill (M) circle (2pt);
+\draw[->,red] (M) -- ++(0,1) node[right] {\(\v{T}\)};
+\draw[->,red] (M) -- ++(0,-1.5) node[right] {\(\v{F}_\grav\)};
+\draw[->,red] (M) -- ++(1.3,0.8) node[right] {\(\v{F}_{ie}\)};
+\end{tikzpicture}
+\end{center}
+
+Système : \(M\paren{m}\).
+
+Référentiel : terrestre non-galiléen.
+
+Bilan des forces : \(\v{F}_\grav=-\dfrac{GmM_T}{R_T^2}\v{u}\) avec \(\v{u}=\dfrac{\v{OM}}{R_T}\), \(\v{T}\), \(\v{F}_{ie}=m\omega^2\v{HM}\) et \(\v{F}_{iC}=\v{0}\).
+
+\PFD : \(\v{F}_\grav+\v{T}+\v{F}_{ie}=\v{0}\).
+
+On définit \[\begin{aligned}
+\v{P}&=-\v{T} \\
+&=\v{F_\grav}+\v{F}_{ie} \\
+&=-\dfrac{GmM_T}{R_T^2}+m\omega^2\v{HM} \\
+&=m\paren{-\dfrac{GM_T}{R_T^2}+\omega^2\v{HM}}.
+\end{aligned}\]
+
+On pose alors le champ gravitationnel \(\v{\call{G}}_\grav=-\dfrac{GM_T}{R_T^2}\).
+
+On obtient le champ de pesanteur \[\v{g}=\v{\call{G}}_\grav\paren{M}+\omega^2\v{HM}.\]
+
+Ainsi, dans le référentiel terrestre local, la force d'inertie d'entraînement est prise en compte dans la définition du poids.
+
+Remarques :
+
+\begin{itemize}
+    \item \(\v{g}\) n'est pas colinéaire à \(\v{OM}\). \\
+    \item La direction de \(\v{g}\) définit la verticale. \\
+    \item On a \(\norme{\v{g}}\not=\norme{\v{\call{G}}_\grav}\). \\
+    \item On a \(g_\pole=\dfrac{GM_T}{R_T^2}\) (en considérant la Terre sphérique). \\
+    \item On a \(g_\equateur=\dfrac{GM_T}{R_T^2}-\omega^2R_T\). \\
+    \item On a \(\dfrac{\adif{g}}{g_\pole}=\dfrac{\omega^2R_T}{G\frac{M_T}{R_T^2}}=\num{3e-3}\).
+\end{itemize}
+
+\subsubsection{Dynamique terrestre}
+
+\paragraph{Base locale}~\\
+
+Dans le référentiel terrestre local, on ne tient pas compte de \(\v{F}_{ie}=m\omega^2\v{HM}\) car elle est déjà contenue dans le poids.
+
+\begin{center}
+\tdplotsetmaincoords{80}{110}
+\begin{tikzpicture}[scale=2,tdplot_main_coords]
+\coordinate (O) at (0,0,0);
+\draw[thick] (O) -- ++(2,0,0);
+\draw[thick] (O) -- ++(0,2,0);
+\draw[thick] (O) -- ++(0,0,2);
+\draw[thick,Goldenrod,->] (O) -- ++(0,0,0.8) node[left] {\(\v{\Omega}\)};
+\begin{scope}[tdplot_screen_coords]
+\fill[ball color=gray!20, opacity=0.25] (O) circle (1.5);
+\end{scope}
+\node[above right] at (0,0,1.5) {\(N\)};
+\draw[dashed] (O) -- ++(0,0,-1.5) node[below right] {\(S\)};
+\tdplotsetrotatedcoords{90}{49}{90};
+\tdplotsetcoord{A}{1.5}{49}{90};
+\draw[dashed] (O) -- (A);
+\filldraw[blue] (A) circle (1pt);
+\draw[thick,blue,tdplot_rotated_coords,->] (A) -- ++(0.5,0,0) node[below right] {\(\v{u}_x\)};
+\draw[thick,blue,tdplot_rotated_coords,->] (A) -- ++(0,0.5,0) node[above right] {\(\v{u}_y\)};
+\draw[thick,blue,tdplot_rotated_coords,->] (A) -- ++(0,0,0.5) node[above right] {\(\v{u}_z\)};
+\tdplotsetthetaplanecoords{90};
+\tdplotdrawarc[tdplot_rotated_coords]{(O)}{0.4}{90}{49}{anchor=west}{\(\lambda\)};
+\end{tikzpicture}
+\end{center}
+
+On a la vitesse de rotation de la Terre autour de son axe \(\Omega=\SI{7.3e-5}{\radian\per\second}\).
+
+On pose le vecteur rotation \(\v{\Omega}=\Omega\dfrac{\v{SN}}{R_T}\).
+
+Base locale à la surface de la Terre : \(\v{u}_x\) vers l'Est, \(\v{u}_y\) vers le Nord et \(\v{u}_z\) vertical ascendant.
+
+\attention Base sphérique \(\paren{\v{u}_r,\v{u}_\theta,\v{u}_\phi}=\paren{\v{u}_z,-\v{u}_y,\v{u}_x}\).
+
+On sait que \(\v{F}_{ie}\) est déjà contenue dans \(\v{P}\).
+
+On note \(\v{v}=\dot{x}\v{u}_x+\dot{y}\v{u}_y+\dot{z}\v{u}_z\) la vitesse dans le référentiel terrestre local.
+
+On a \(\v{\Omega}=\Omega\paren{\cos\paren{\lambda}\v{u}_y+\sin\paren{\lambda}\v{u}_z}\).
+
+Donc \[\begin{aligned}
+\v{F}_{iC}&=-2m\v{\Omega}\vecto\v{v} \\
+&=-2m\Omega\paren{\dot{x}\paren{\cos\paren{\lambda}\v{u}_z-\sin\paren{\lambda}\v{u}_y}+\dot{y}\sin\paren{\lambda}\v{u}_x-\dot{z}\cos\paren{\lambda}\v{u}_x} \\
+&=-2m\Omega\paren{\paren{\dot{y}\sin\lambda-\dot{z}\cos\lambda}\v{u}_x-\dot{x}\sin\paren{\lambda}\v{u}_y+\dot{x}\cos\paren{\lambda}\v{u}_z}.
+\end{aligned}\]
+
+\paragraph{Mouvement horizontal, vers la droite dans l'hémisphère Nord}~\\
+
+On considère un mouvement horizontal donc \(z=\cte\).
+
+On a \(\dot{x}\not=0\), \(\dot{y}\not=0\) et \(\dot{z}=0\).
+
+Donc \[\begin{aligned}
+\v{F}_{iC}&=-2m\v{\Omega}\vecto\v{v} \\
+&=-2m\Omega\paren{\cos\paren{\lambda}\v{u}_y+\sin\paren{\lambda}\v{u}_z}\vecto\v{v} \\
+&=-2m\Omega\paren{\underbrace{\cos\paren{\lambda}\v{u}_y\vecto\v{v}}_{\text{force portée par }\v{u}_z}+\underbrace{\sin\paren{\lambda}\v{u}_z\vecto\v{v}}_{\text{force portée par }\v{u}_x}}.
+\end{aligned}\]
+
+Ainsi, la force de Coriolis tend à pousser un mobile vers la droite du mouvement dans l'hémisphère Nord (\(\lambda>0\)) et vers la gauche du mouvement dans l'hémisphère Sud (\(\lambda<0\)).
+
+Ordre de grandeur : en considérant une voiture de \(m=\SI{1000}{\kilo\gram}\) roulant à \(v=\SI{100}{\kilo\metre\per\hour}\) avec \(\lambda=\SI{49}{\degree}\), on obtient \[F=2m\Omega v\sin\lambda\approx\SI{3}{\newton}.\] Donc l'effet de la force de Coriolis n'est sensible que pour des objets de masse importante et de vitesse élevée.
+
+\paragraph{Mouvement vertical, déviation vers l'Est}~\\
+
+Deux expériences ont montré l'existence d'une déviation de la trajectoire d'un objet en chute libre :
+
+\begin{itemize}
+    \item Expérience de Reich (1831) : chute de billes d'acier dans des puits de mine (sans vent). Avec \(h=\SI{158}{m}\) et \(\lambda=\ang{50}\), on observa une déviation de \(\SI{28}{\milli\metre}\) par rapport à la verticale. \\
+    \item Expérience de Flammarion (1903) : idem depuis la coupole du Panthéon. Avec \(h=\SI{68}{\metre}\) et \(\lambda=\ang{48;51}\), on observa une déviation de \(\SI{7.6}{\milli\metre}\) par rapport à la verticale.
+\end{itemize}
+
+Système : bille de masse \(m\).
+
+Référentiel : terrestre supposé galiléen (première approche sans \(\v{F}_{iC}\)).
+
+Bilan des forces : \(\v{P}=m\v{g}=-mg\v{u}_z\) (contient \(\v{F}_{ie}\)).
+
+\PFD : \(m\tcoords{\ddot{x}}{\ddot{y}}{\ddot{z}}=-mg\tcoords{0}{0}{1}\)
+
+D'où \[\begin{dcases}
+\ddot{x}=0 \\
+\ddot{y}=0 \\
+\ddot{z}=-g
+\end{dcases}\ssi\begin{dcases}
+\dot{x}=0 \\
+\dot{y}=0 \\
+\dot{z}=-gt
+\end{dcases}\ssi\begin{dcases}
+x=0 \\
+y=0 \\
+z=h-\dfrac{1}{2}gt^2
+\end{dcases}\]
+
+Donc sans tenir compte de \(\v{F}_{iC}\), on obtient le mouvement non-perturbé (ou mouvement d'ordre 0) avec \[\v{v}=-gt\v{u}_z.\]
+
+On a \[\begin{aligned}
+\v{F}_{iC}&=-2m\v{\Omega}\vecto\v{v} \\
+&=-2m\Omega\paren{\cos\paren{\lambda}\v{u}_y+\sin\paren{\lambda}\v{u}_z}\vecto\paren{-gt\v{u}_z} \\
+&=2m\Omega\cos\paren{\lambda}gt\v{u}_x.
+\end{aligned}\]
+
+Méthode perturbative : on sait que \(\norme{\v{F}_{iC}}\ll mg\) ; on considère que l'ordre 0 reste vrai et on le perturbe avec \(\v{F}_{iC}\).
+
+Bilan des forces : \(\v{P}=-mg\v{u}_z\) et \(\v{F}_{iC}=2m\Omega\cos\paren{\lambda}gt\v{u}_x\).
+
+\PFD : \(m\tcoords{\ddot{x}}{\ddot{y}}{\ddot{z}}=\tcoords{2m\Omega\cos\paren{\lambda}gt}{0}{-mg}\).
+
+D'où \[\begin{dcases}
+\ddot{x}=2\Omega\cos\paren{\lambda}gt \\
+\ddot{y}=0 \\
+\ddot{z}=-g
+\end{dcases}\ssi\begin{dcases}
+\dot{x}=\Omega\cos\paren{\lambda}gt^2 \\
+\dot{y}=0 \\
+\dot{z}=-gt
+\end{dcases}\ssi\begin{dcases}
+x=\dfrac{1}{3}\Omega\cos\paren{\lambda}t^3 \\
+y=0 \\
+z=h-\dfrac{1}{2}gt^2
+\end{dcases}\]
+
+Dans l'hémisphère Nord, on a \(\lambda>0\) donc \(\cos\lambda>0\) donc \(x>0\) : déviation vers l'Est.
+
+De plus, comme \(z=h-\dfrac{1}{2}gt^2\), on a \(t=\sqrt{\dfrac{2\paren{h-z}}{g}}\).
+
+D'où \[x\paren{z}=\dfrac{1}{3}\Omega\cos\paren{\lambda}g\paren{\dfrac{2\paren{h-z}}{g}}^{\nicefrac{3}{2}}.\]
+
+On en déduit \[x_\maxi=x\paren{z=0}=\dfrac{1}{3}\Omega\cos\paren{\lambda}g\paren{\dfrac{2h}{g}}^{\nicefrac{3}{2}}.\]
+
+Applications numériques dans les cas des expériences de Reich et Flammarion : \[x_\maxi=\SI{27.5}{\milli\metre}\qquad\text{et}\qquad x_\maxi=\SI{8}{\milli\metre}.\]
+
+Ordre 2 :
+
+On a \(\begin{dcases}
+\dot{x}=\Omega\cos\paren{\lambda}gt^2 \\
+\dot{y}=0 \\
+\dot{z}=-gt
+\end{dcases}\) donc \[\v{v}=\Omega\cos\paren{\lambda}gt^2\v{u}_x-gt\v{u}_z.\]
+
+On en déduit \[\begin{aligned}
+\v{F}_{iC}&=-2m\v{\Omega}\vecto\v{v} \\
+&=\text{ }?
+\end{aligned}\]
+
+On obtient une nouvelle expression de \(\v{F}_{iC}\) plus précise et donc on peut calculer \(x,y,z\) à l'ordre 2.
+
+On a appliqué la méthode des perturbations :
+
+\begin{itemize}
+    \item on calcule le mouvement non-perturbé (à l'ordre 0) en l'absence de \(\v{F}_{iC}\) ; \\
+    \item on calcule \(\v{F}_{iC}\) à partir de l'ordre 0 et on perturbe celui-ci pour obtenir l'ordre 1 ; \\
+    \item etc... \\
+    \item on s'arrête lorsque le passage de l'ordre \(n\) à \(n+1\) produit un écart négligeable.
+\end{itemize}
+
+Autre effet du caractère non-galiléen du référentiel terrestre : le pendule de Foucault.
