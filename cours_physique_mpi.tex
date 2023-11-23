@@ -82,7 +82,8 @@ list-final-separator={et},
 list-pair-separator={et},
 range-phrase={\ensuremath{\xleftrightarrow{}}},
 exponent-product=\ensuremath{\cdot},
-per-mode=power-positive-first
+per-mode=power-positive-first,
+input-digits = 0123456789\pi
 }
 
 \usepackage[thmmarks]{ntheorem}
@@ -437,6 +438,9 @@ per-mode=power-positive-first
 \newcommand{\equateur}{\mathrm{equateur}}
 \newcommand{\ie}{\textit{i.e.} }
 \newcommand{\cf}{\textit{cf.} }
+\newcommand{\sortant}{\mathrm{sortant}}
+\newcommand{\entrant}{\mathrm{entrant}}
+\newcommand{\enl}{\mathrm{enl}}
 
 \usepackage{diagbox}
 
@@ -524,6 +528,13 @@ pdfauthor=Romain Bricout
 \let\div\relax % workaround to redeclare
 \DeclareMathOperator{\div}{\mathrm{div}}
 \DeclareMathOperator{\lap}{\Delta}
+
+\newcommand{\MG}{(MG) }
+\newcommand{\MT}{(MT) }
+\newcommand{\MA}{(\(\v{\mathrm{MA}}\)) }
+\newcommand{\MF}{(\(\v{\mathrm{MF}}\)) }
+
+\usepackage{makecell}
 
 \begin{document}
 \renewcommand{\labelitemi}{\(\triangleright\)}
