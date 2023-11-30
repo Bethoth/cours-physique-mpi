@@ -254,4 +254,217 @@ Remarque : en statique, on a \(\pdv{}{t}=0\) donc on retrouve le théorème d'Am
 \end{Tabular}
 \end{center}
 
-\note{Chapitre incomplet : progression du 20/11}
+\subsection{Application : condensateur plan en régime variable}
+
+Soit un condensateur plan constitué de deux disques de rayon \(a\) et séparés de \(e\).
+
+\begin{center}
+\begin{tikzpicture}[tdplot_main_coords]
+\draw (0,0,0) circle (3);
+\filldraw[fill=white,fill opacity=1] (0,0,2) circle[radius=3];
+\draw[<->] (0,0,2) -- (-3,0,2) node[left,midway] {\(a\)};
+\draw[<->] (3,0,0) -- (3,0,2) node[left,midway] {\(e\)};
+\node[left] at (0,3,0) {\(q\paren{t}\)};
+\node[left] at (0,3,2) {\(-q\paren{t}\)};
+\end{tikzpicture}\qquad\qquad\begin{tikzpicture}
+\draw (0,0) -- (6,0);
+\draw (0,2) -- (6,2);
+\draw[<->] (6.2,0) -- (6.2,2) node[midway,right] {\(e\)};
+\draw[<->] (3,2.2) -- (6,2.2) node[midway,above] {\(a\)};
+\draw[->,blue] (7,3) -- (7,4) node[right] {\(\v{u}_z\)};
+\draw[->,blue] (1.3,0.3) -- (1.3,1.7) node[right] {\(\v{E}\)};
+\node at (1,4) {Vue de côté};
+\end{tikzpicture}
+\end{center}
+
+On suppose \(a\gg e\) : on peut négliger les effets de bord.
+
+La charge \(q\paren{t}\) varie lentement donc le régime statique reste valable.
+
+On définit l'intérieur du condensateur comme la zone où \(r<a\) et \(\abs{z}\leq\dfrac{e}{2}\).
+
+On a \(\v{E}_\ext=\v{0}\) et \(\v{E}_\inte=\dfrac{\sigma}{\epsilon_0}\v{u}_z\) avec \(\sigma=\dfrac{q\paren{t}}{S}=\dfrac{q\paren{t}}{\pi a^2}\).
+
+On suppose \(q\paren{t}=Q_0\cos\paren{\omega t}\).
+
+On a donc \(\v{E}_\inte=\dfrac{Q_0\cos\paren{\omega t}}{\pi a^2\epsilon_0}\v{u}_z\).
+
+À l'intérieur du condensateur, on a \(\v{j}=\v{0}\) donc \MF : \(\rot\v{B}=\mu_0\epsilon_0\pdv{\v{E}}{t}\not=\v{0}\) donc \(\v{B}\not=\v{0}\).
+
+Les sources de \(\v{B}\) sont les variations de \(\v{E}\).
+
+On a \(\pdv{\v{E}}{t}=-\dfrac{\omega Q_0\sin\paren{\omega t}}{\pi a^2\epsilon_0}\v{u}_z\).
+
+Vue du dessus :
+
+\begin{center}
+\begin{tikzpicture}
+\coordinate (O) at (0,0);
+\coordinate (M) at (1,1);
+\draw (O) circle (3);
+\filldraw (O) circle (2pt) node[below left] {\(O\)};
+\filldraw (M) circle (2pt) node[below] {\(M\)};
+\draw[->,blue] (M) -- ++(45:1) node[right] {\(\v{u}_r\)};
+\draw[->,blue] (M) -- ++(135:1) node[above right] {\(\v{u}_\theta\)};
+\filldraw[blue] (1.5,1) circle (1pt);
+\draw[blue] (1.5,1) circle (4pt) node[right=5pt] {\(\v{u}_z\)};
+\end{tikzpicture}
+\end{center}
+
+\(\Pi=\paren{M,\v{u}_r,\v{u}_z}\) est un plan de symétrie de \(\pdv{\v{E}}{t}\) donc \(\v{B}=B\paren{M}\v{u}_\theta\).
+
+On a invariance par rotation d'angle \(\theta\) donc \(\v{B}\paren{M}=\v{B}\paren{r,z}\).
+
+Donc \(\v{B}\paren{M}=B\paren{r,z}\v{u}_\theta\).
+
+On applique le théorème d'Ampère généralisé sur le contour d'Ampère \(\Gamma\) : cercle de rayon \(r\) passant par \(M\) : \[\oint_\Gamma\v{B}\scal\odif{\v{l}}=\mu_0\cancelto{0}{I_\enl}+\mu_0\epsilon_0\pdv{}{t}\iint_S\v{E}\scal\odif{\v{S}}.\]
+
+On a \(\oint_\Gamma\v{B}\scal\odif{\v{l}}=\int_0^{2\pi}B\paren{r,z}r\odif{\theta}=2\pi rB\paren{r,z}\).
+
+De plus, on a \(\iint_S\v{E}\scal\odif{\v{S}}=\iint_SE\paren{r,z}r\odif{r}\odif{\theta}\).
+
+Si \(\abs{z}>\dfrac{e}{2}\) :
+
+Alors \(E\paren{r,z}=0\) donc \(\iint_S\v{E}\scal\odif{\v{S}}=0\).
+
+Donc \(2\pi rB\paren{r,z}=0\) donc \(B\paren{r,z}=0\).
+
+Si \(\abs{z}\leq\dfrac{e}{2}\) et \(r\leq a\) :
+
+On a \(E\paren{r,z}=\dfrac{Q_0\cos\paren{\omega t}}{\pi a^2\epsilon_0}\) donc \[\begin{aligned}
+\iint\v{E}\scal\odif{\v{S}}&=\iint\dfrac{Q_0\cos\paren{\omega t}}{\pi a^2\epsilon_0}r\odif{r}\odif{\theta} \\
+&=\dfrac{2Q_0\cos\paren{\omega t}}{a^2\epsilon_0}\int_0^rr\odif{r} \\
+&=\dfrac{Q_0\cos\paren{\omega t}}{a^2\epsilon_0}r^2.
+\end{aligned}\]
+
+D'où \(2\pi rB\paren{r,z}=\dfrac{-\mu_0\omega Q_0\sin\paren{\omega t}}{a^2}r^2\) et donc \[B\paren{r,z}=\dfrac{-\mu_0\omega Q_0\sin\paren{\omega t}r}{2\pi a^2}.\]
+
+Si \(\abs{z}\leq\dfrac{e}{2}\) et \(r\geq a\) :
+
+On a \(\iint\v{E}\scal\odif{\v{S}}=\dfrac{Q_0\cos\paren{\omega t}}{\pi a^2\epsilon_0}\pi a^2=\dfrac{Q_0\cos\paren{\omega t}}{\epsilon_0}\).
+
+Donc \(B\paren{r,z}=\dfrac{-\mu_0Q_0\omega\sin\paren{\omega t}}{2\pi r}\).
+
+Ainsi, on a :
+
+\begin{itemize}
+    \item à l'intérieur du condensateur, \(\v{E}\not=\v{0}\) et \(\v{B}\not=\v{0}\) ; \\
+    \item à l'extérieur du condensateur dans les zones où \(\abs{z}\leq\dfrac{e}{2}\), \(\v{E}=\v{0}\) et \(\v{B}\not=\v{0}\) ; \\
+    \item dans le reste de l'espace, \(\v{E}=\v{0}\) et \(\v{B}=\v{0}\).
+\end{itemize}
+
+\section{Propagation des champs dans un milieu vide de charges et de courants}
+
+\subsection{Couplage spatio-temporel}
+
+On a \MF : \[\rot\v{E}=-\pdv{\v{B}}{t}\] et \MA : \[\rot\v{B}=\mu_0\cancelto{0}{I_\enl}+\mu_0\epsilon_0\pdv{\v{E}}{t}.\]
+
+Ces deux équations traduisent un couplage entre \(\v{E}\) et \(\v{B}\) mais également entre les dérivées temporelles et spatiales.
+
+D'où l'existence du phénomène de propagation.
+
+\begin{center}
+\begin{tikzpicture}
+\filldraw (0,0) circle (2pt) node[above] {\(M_1\)};
+\filldraw (2,0) circle (2pt) node[above] {\(M_2\)};
+\filldraw (4,0) circle (2pt) node[above] {\(M_3\)};
+\node at (6,0) {...};
+\end{tikzpicture}
+\end{center}
+
+L'existence de \(\v{E}\paren{M_1}\) variable implique l'existence de \(\v{B}\paren{M_2}\) variable qui implique l'existence de \(\v{E}\paren{M_3}\), etc...
+
+\subsection{Équation de propagation}
+
+Dans une région vide de charges et de courants (\(\rho=0\) et \(\v{j}=\v{0}\)), on a :
+
+\begin{itemize}
+    \item \MG : \[\div\v{E}=0\] \\
+    \item \MT : \[\div\v{B}=0\] \\
+    \item \MF : \[\rot\v{E}=-\pdv{\v{B}}{t}\] \\
+    \item \MA : \[\rot\v{B}=\mu_0\epsilon_0\pdv{\v{E}}{t}\]
+\end{itemize}
+
+Donc en appliquant \(\rot\) à \MF, on a : \[\begin{WithArrows}
+\rot\paren{-\pdv{\v{B}}{t}}&=-\pdv{}{t}\rot\v{B} \Arrow{\MA} \\
+&=-\pdv{}{t}\paren{\mu_0\epsilon_0\pdv{\v{E}}{t}} \\
+&=-\mu_0\epsilon_0\pdv[order=2]{\v{E}}{t}
+\end{WithArrows}\] et \[\rot\paren{\rot\v{E}}=\grad\paren{\div\v{E}}-\lapv\v{E}=-\lapv\v{E}.\]
+
+D'où \[\color{red}\lapv\v{E}=\mu_0\epsilon_0\pdv[order=2]{\v{E}}{t}\color{black}=\dfrac{1}{c^2}\pdv[order=2]{\v{E}}{t}.\]
+
+C'est l'équation de D'Alembert.
+
+Remarque : en cartésien, on a \(\lapv\v{A}=\tcoords{\lap A_x}{\lap A_y}{\lap A_z}\).
+
+De plus, en appliquant \(\rot\) à \MA, on obtient \[\lapv\v{B}=\dfrac{1}{c^2}\pdv[order=2]{\v{B}}{t}.\]
+
+Donc \(\v{B}\) et \(\v{E}\) sont solutions de la même équation de D'Alembert, que l'on appelle aussi équation de propagation ou équation d'ondes.
+
+Donc \(\v{E}\) et \(\v{B}\) sont des ondes qui se propagent à la célérité \(c\).
+
+Remarque hors-programme : il existe l'opérateur d'alembertien \(\dalemb=\lapv-\dfrac{1}{c^2}\pdv[order=2]{}{t}\). On réécrit alors les équations vues ci-dessus comme suit : \[\dalemb\v{E}=\v{0}\qquad\text{et}\qquad\dalemb\v{B}=\v{0}.\]
+
+\section{Équations locales des champs statiques}
+
+\subsection{Équations de Maxwell en régime stationnaire}
+
+En régime stationnaire (ou statique), on a \(\pdv{}{t}=0\).
+
+On a donc \MG : \[\div\v{E}=\dfrac{\rho}{\epsilon_0}\] \MT : \[\div\v{B}=0\] \MF : \[\rot\v{E}=\v{0}\] \MA : \[\rot\v{B}=\mu_0\v{j}.\]
+
+On observe donc un découplage des champs \(\v{E}\) et \(\v{B}\) : on les traite séparément.
+
+\subsection{Conséquences}
+
+\subsubsection{Théorèmes de Gauss et d'Ampère}
+
+On retrouve le théorème de Gauss : \[\begin{WithArrows}
+\div\v{E}&=\dfrac{\rho}{\epsilon_0} \\
+\iiint_V\div\v{E}&=\iiint_V\dfrac{\rho}{\epsilon_0} \Arrow{Ostrogradski-Green} \\
+\oiint_S\v{E}\scal\odif{\v{S}}&=\dfrac{Q_\inte}{\epsilon_0}
+\end{WithArrows}\] et le théorème d'Ampère : \[\begin{WithArrows}
+\rot\v{B}&=\mu_0\v{j} \\
+\iint_S\rot\v{B}\scal\odif{\v{S}}&=\iint_S\mu_0\v{j}\scal\odif{\v{S}} \Arrow{Stokes-Ampère} \\
+\oint_\Gamma\v{B}\scal\odif{\v{l}}&=\mu_0I_\enl.
+\end{WithArrows}\]
+
+On en déduit que les sources de champ électrostatique sont les charges et que les sources de champ magnétostatique sont les courants.
+
+\subsubsection{Existence du potentiel électrostatique}
+
+On a \(\rot\v{E}=\v{0}\).
+
+Or pour tout champ \(f\), on a \(\rot\paren{\grad f}=\v{0}\).
+
+Donc on peut écrire \(\v{E}\) sous la forme \[\v{E}=\grad f\] avec \(f\) un champ.
+
+D'où l'existence du potentiel électrostatique \(V\) tel que \[\v{E}=-\grad V.\]
+
+De plus, \(\grad V\) est dirigé vers les zones de fort potentiel donc \(\v{E}\) descend les potentiels.
+
+\subsection{Équations de Poisson et Laplace}
+
+En régime stationnaire, on a \(\v{E}=-\grad V\) et \(\div\v{E}=\dfrac{\rho}{\epsilon_0}\).
+
+Donc \[\begin{aligned}
+\div\paren{-\grad V}&=\dfrac{\rho}{\epsilon_0} \\
+-\lap V&=\dfrac{\rho}{\epsilon_0} \\
+\color{red}\lap V+\dfrac{\rho}{\epsilon_0}&\color{red}=0.\color{black}
+\end{aligned}\]
+
+C'est l'équation de Poisson (note culturelle : il entra à l'École polytechnique en 1798).
+
+Ainsi, il suffit de connaître \(\rho\) et de résoudre l'équation de Poisson pour obtenir \(V\) puis en déduire le champ \(\v{E}\).
+
+De plus, dans une zone vide de charge (\(\rho=0\)), on a \[\color{red}\lap V=0.\color{black}\]
+
+C'est l'équation de Laplace.
+
+Analogie gravitationnelle :
+
+En notant \(V_g=-\dfrac{Gm}{r}\) le potentiel gravitationnel, on a \[\v{\call{G}}=-\grad V_g.\]
+
+On en déduit l'équation de Poisson gravitationnelle (en notant \(\mu\) la masse volumique) : \[\lap V_g-4\pi\mu G=0.\]
+
+On en déduit également, dans une zone vide (de masse), l'équation de Laplace gravitationnelle : \[\lap V_g=0.\]

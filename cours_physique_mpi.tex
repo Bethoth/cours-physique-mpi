@@ -528,6 +528,8 @@ pdfauthor=Romain Bricout
 \let\div\relax % workaround to redeclare
 \DeclareMathOperator{\div}{\mathrm{div}}
 \DeclareMathOperator{\lap}{\Delta}
+\DeclareMathOperator{\lapv}{\v{\operatorname{\Delta}}}
+\DeclareMathOperator{\dalemb}{\Box}
 
 \newcommand{\MG}{(MG) }
 \newcommand{\MT}{(MT) }
@@ -551,11 +553,11 @@ Les éléments des tables des matières initiale et présentes au début de chaq
 
 Code couleur des vecteurs (et flèches en général) : \begin{itemize}
 \item noir : légendes ou mouvements ;
-\item violet : champs (par exemple le champ de pesanteur \(\v{g}\)) ;
-\item rouge : forces ;
-\item bleu : vecteurs unitaires ;
-\item vert : vecteurs vitesse ou accélération ;
-\item jaune : vecteurs rotation. \\
+\item violet : champs de pesanteur ;
+\item rouge : forces, vecteurs densité de courant volumique ;
+\item bleu : vecteurs unitaires, champs électriques ;
+\item vert : vecteurs vitesse ou accélération, champs magnétiques ;
+\item jaune : vecteurs rotation. \\ % Goldenrod
 \end{itemize}
 \end{abstract}
 
