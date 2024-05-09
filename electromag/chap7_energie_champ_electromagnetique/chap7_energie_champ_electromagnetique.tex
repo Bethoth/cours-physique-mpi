@@ -2,4 +2,338 @@
 
 \minitoc
 
-\note{À venir}
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+Ce chapitre traite des échanges d'énergie entre la matière et le champ électromagnétique.
+
+\section{Première approche : le conducteur ohmique}
+
+\subsection{Modèle de Drude, loi d'Ohm locale}
+
+On cherche à construire un modèle microscopique de la conduction électrique dans un conducteur électrique. Le modèle suivant a été proposé en 1900 par Paul Drude (Allemagne) et amélioré en 1905 par Hendrik Lorentz (Pays-Bas, Prix Nobel de Physique en 1902).
+
+Le modèle de Drude-Lorentz explique microscopiquement la loi empirique d'Ohm (1827).
+
+Soit un conducteur électrique immobile possédant des charges mobiles (souvent des électrons) de charge \(q\), de masse \(m\) et de densité volumique \(n\).
+
+Sous l'effet d'un champ \(\v{E}\) extérieur, les porteurs de charge se mettent en mouvement à la vitesse \(\v{v}\).
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw (3,2) -- (7,2);
+\draw (3,5) arc[start angle=90,end angle=270,x radius=1,y radius=1.5];
+\draw[dotted] (4,3.5) arc[start angle=0,end angle=90,x radius=1,y radius=1.5];
+\draw[dotted] (4,3.5) arc[start angle=0,end angle=-90,x radius=1,y radius=1.5];
+\draw (8,3.5) arc[start angle=0,end angle=360,x radius=1,y radius=1.5];
+\draw (3,5) -- (7,5);
+\draw[->,blue] (4,5.5) -- ++(2,0) node[above] {\(\v{E}\)};
+\draw[->,blue] (6,1.5) -- ++(2,0) node[above] {\(\v{E}\)};
+\draw[->,green] (4.1,3.5) -- ++(1.5,0) node[below] {\(\v{v}\)};
+\end{tikzpicture}
+\end{center}
+
+On modélise l'interaction entre les porteurs de charge et le milieu par une force de frottement \(\v{f}=-\lambda\v{v}\).
+
+On applique le \PFD sur un porteur de charge : \[m\odv{\v{v}}{t}=q\v{E}-\lambda\v{v}\] où \(q\v{E}\) est la composante électrique de la force de Lorentz.
+
+On a donc \(\odv{\v{v}}{t}+\dfrac{\lambda}{m}\v{v}=\dfrac{q}{m}\v{E}\).
+
+On pose \(\tau=\dfrac{m}{\lambda}\) et on a \[\v{v}\paren{t}=\v{k}\e{-\nicefrac{t}{\tau}}+\dfrac{q}{\lambda}\v{E}.\]
+
+On détermine \(\v{k}\) avec les conditions initiales.
+
+Si \(t\geq5\tau\), on a \(\v{v}\paren{t}=\dfrac{q}{\lambda}\v{E}=\v{v}_\limite\) : le régime transitoire disparaît et on atteint le régime permanent.
+
+Dans un conducteur classique (\ie un métal), on a \(\tau\approx\SI{e-14}{\second}\) donc on peut légitimement considérer que \(\v{v}=\v{v}_\limite\).
+
+On note \(\v{j}\) la densité de courant volumique dans le conducteur. On a \[\v{j}=nq\v{v}.\]
+
+Ici, \(\v{j}=nq\v{v}_\limite=\dfrac{nq^2}{\lambda}\v{E}\).
+
+C'est la loi d'Ohm locale : \[\color{red}\v{j}=\dfrac{nq^2}{\lambda}\v{E}.\]
+
+On pose \(\gamma=\dfrac{nq^2}{\lambda}\) la conductivité du milieu (en \(\unit{\siemens\per\metre}\)) et on a \[\color{red}\v{j}=\gamma\v{E}.\]
+
+On utilise aussi parfois \(\rho=\dfrac{1}{\gamma}\) la résistivité du milieu (en \(\unit{\ohm\metre}\)).
+
+Voici quelques ordres de grandeur de conductivité :
+
+\begin{center}
+\begin{Tabular}{|c|c|c|}
+\hline
+\thead{\textbf{Milieu}} & \thead{\textbf{\(\gamma\) (\(\unit{\siemens\per\metre}\))}} & \thead{\textbf{Nature}} \\
+Verre & \(\num{e-11}\) & Isolant \\
+Paraffine & \(\num{e-8}\) & Isolant \\
+Eau potable & \(\numrange{e-4}{e-2}\) & Mauvais conducteur \\
+Fer & \(\num{9.9e6}\) & Bon conducteur \\
+\textbf{Cuivre} & \textbf{\(\num{5.8e7}\)} & \textbf{Excellent conducteur} \\
+Argent & \(\num{6.2e7}\) & Excellent conducteur \\
+Supraconducteur & \(\pinf\) & Conducteur parfait \\
+\hline
+\end{Tabular}
+\end{center}
+
+Les matériaux dont la conductivité est inférieure à \(\num{e-4}\) sont appelés des isolants.
+
+Ceux dont la conductivité est comprise entre \(\num{e-4}\) et \(\num{e4}\) sont appelés des semi-conducteurs.
+
+Ceux dont la conductivité est supérieure à \(\num{e4}\) sont appelés des conducteurs.
+
+On avait \(\tau=\dfrac{m}{\lambda}\) donc \(\gamma=\dfrac{nq^2}{\lambda}=\dfrac{nq^2\tau}{m}\) donc \(\tau=\dfrac{\gamma m}{nq^2}\).
+
+Considérons l'exemple du cuivre. Dans le cuivre, les porteurs de charge sont les électrons donc on a \(\gamma=\SI{5.8e7}{\siemens\per\metre}\), \(m=\SI{9.1e-31}{\kilo\gram}\), \(q=-e=\SI{-1.6e-19}{\coulomb}\) et \(n=\SI{10e29}{\per\cubic\metre}\) et on en déduit \[\tau\approx\dfrac{\num{e-30}\times\num{e6}}{\num{e29}\times\num{e-38}}=\SI{e-15}{\second}.\]
+
+\subsection{Loi d'Ohm intégrale}
+
+Soit une portion de conducteur ohmique de longueur \(L\) et de section \(S\) placée dans un champ électrique extérieur stationnaire \(\v{E}=E\v{u}_z\) créé par un générateur extérieur.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw[dashed] (0,3.5) -- (12,3.5);
+\draw (3,2) -- (9,2);
+\draw (3,5) arc[start angle=90,end angle=270,x radius=1,y radius=1.5];
+\draw[dotted] (4,3.5) arc[start angle=0,end angle=90,x radius=1,y radius=1.5];
+\draw[dotted] (4,3.5) arc[start angle=0,end angle=-90,x radius=1,y radius=1.5];
+\draw[pattern=north east lines, pattern color=gray] (10,3.5) arc[start angle=0,end angle=360,x radius=1,y radius=1.5];
+\draw (3,5) -- (9,5);
+\draw[<->] (3,1) -- (9,1) node[midway,below] {\(L\)};
+\draw[->,red] (5,3.5) -- ++(1.5,0) node[below] {\(\v{j}\)};
+\filldraw (3,3.5) circle (2pt) node[above] {\(A\)};
+\filldraw (9,3.5) circle (2pt) node[above] {\(B\)};
+\node at (9,2.5) {\(S\)};
+\draw[->,blue] (10.8,3.5) -- (11.8,3.5) node[below] {\(\v{u}_z\)};
+\end{tikzpicture}
+\end{center}
+
+On a \(\v{j}=\gamma\v{E}\).
+
+On pose \(I\) l'intensité traversant une surface d'entrée (ou sortie) du conducteur : \[I=\iint_{\begin{tikzpicture}[scale=0.13]\draw[pattern=north east lines, pattern color=gray] (10,3.5) arc[start angle=0,end angle=360,x radius=1,y radius=1.5];\end{tikzpicture}}\v{j}\scal\odif{\v{S}}=\iint_{\begin{tikzpicture}[scale=0.13]\draw[pattern=north east lines, pattern color=gray] (10,3.5) arc[start angle=0,end angle=360,x radius=1,y radius=1.5];\end{tikzpicture}}\gamma E\odif{S}=\gamma ES.\]
+
+On pose \(U\) la différence de potentiel entre les surfaces d'entrée et de sortie du conducteur : \[U=V_A-V_B.\]
+
+On a \[\begin{aligned}
+\v{E}&=-\grad V \\
+E\v{u}_z&=-\odv{V}{z}\v{u}_z \\
+-E\odif{z}&=\odif{V}
+\end{aligned}\] donc \[\int_A^B\odif{V}=\int_A^B-E\odif{z}\] donc \[V\paren{B}-V\paren{A}=-U=-EL\] \ie \[U=EL.\]
+
+Ainsi, on a \[I=\gamma\dfrac{U}{L}S\] et donc \[U=\dfrac{L}{\gamma S}I=RI\] en posant \(R=\dfrac{L}{\gamma S}\) la résistance du conducteur de longueur \(L\) et de section \(S\) (en \(\unit{\ohm}\)).
+
+D'où la loi d'Ohm : \[\color{red}U=RI.\]
+
+\subsection{Puissance cédée par le champ électromagnétique aux porteurs de charge}
+
+\subsubsection{Cas d'une particule ponctuelle}
+
+Soit une particule ponctuelle animée de la vitesse \(\v{v}\) portant la charge \(q\) et placée dans le champ électromagnétique \(\paren{\v{E},\v{B}}\).
+
+En notant \(P\) la puissance de la force de Lorentz, on a \[\begin{aligned}
+P&=\v{F}\scal\v{v} \\
+&=q\paren{\v{E}+\v{v}\vecto\v{B}}\scal\v{v} \\
+&=q\v{E}\scal\v{v}+q\underbrace{\v{v}\vecto\v{B}\scal\v{v}}_{=0} \\
+\color{red}P&\color{red}=q\v{E}\scal\v{v}.
+\end{aligned}\]
+
+\textcolor{red}{La puissance de la force magnétique est nulle.}
+
+\(P\) est la puissance cédée par le champ électromagnétique au porteur de charge.
+
+\subsubsection{Expression volumique}
+
+On raisonne sur un élément de volume \(\odif{\tau}\) qui contient des particules chargées de charge \(q\), animées de la vitesse \(\v{v}\) et de densité volumique \(n\).
+
+En notant \(\odif{P}\) la puissance élémentaire cédée par le champ aux porteurs de charge dans le volume \(\odif{\tau}\), on a \[\odif{P}=\underbrace{n\odif{\tau}}_{\substack{\text{nombre} \\ \text{de} \\ \text{porteurs}}}\underbrace{q\v{E}\scal\v{v}.}_{\substack{\text{puissance} \\ \text{cédée à} \\ \text{un porteur}}}\]
+
+On a alors \[\begin{aligned}
+\odv{P}{\tau}&=nq\v{E}\scal\v{v} \\
+&=nq\v{v}\scal\v{E} \\
+\color{red}\odv{P}{\tau}&\color{red}=\v{j}\scal\v{E}.
+\end{aligned}\]
+
+Cette grandeur est une puissance volumique (en \(\unit{\watt\per\cubic\metre}\)).
+
+Remarque : on a raisonné avec un seul type de porteur de charge. S'il y en a plusieurs, on a \[\odif{P}=\sum_i\odif{P_i}=\sum_in_i\odif{\tau}q_i\v{E}\scal\v{v}_i\] et \[\odv{P}{\tau}=\paren{\sum_i\v{j}_i}\scal\v{E}=\v{j}\scal\v{E}.\]
+
+\subsubsection{Application : effet Joule}
+
+On a \(\odv{P}{\tau}=\v{j}\scal\v{E}\).
+
+Avec un conducteur ohmique, d'après la loi d'Ohm, on a \(\v{j}=\gamma\v{E}\).
+
+Ainsi, on a la loi de Joule (locale) : \[\color{red}\odv{P}{\tau}=\gamma E^2.\]
+
+Considérons l'exemple ci-dessous :
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw (3,2) -- (9,2);
+\draw (3,5) arc[start angle=90,end angle=270,x radius=1,y radius=1.5];
+\draw[dotted] (4,3.5) arc[start angle=0,end angle=90,x radius=1,y radius=1.5];
+\draw[dotted] (4,3.5) arc[start angle=0,end angle=-90,x radius=1,y radius=1.5];
+\draw (10,3.5) arc[start angle=0,end angle=360,x radius=1,y radius=1.5];
+\draw (3,5) -- (9,5);
+\draw[<->] (3,1) -- (9,1) node[midway,below] {\(L\)};
+\draw[->,red] (4.7,3) -- ++(1.5,0) node[below] {\(\v{j}\)};
+\draw[->,blue] (5,4) -- ++(2.1,0) node[above] {\(\v{E}\)};
+\node at (9,2.5) {\(S\)};
+\end{tikzpicture}
+\end{center}
+
+On cherche \(P_\tot\) la puissance totale cédée par le champ aux porteurs de charge dans le conducteur ohmique de longueur \(L\) et de section \(S\).
+
+On a \(\odv{P}{\tau}=\gamma E^2\) donc \(\odif{P}=\gamma E^2\odif{\tau}\). Ainsi \[P_\tot=\iiint_V\odif{P}=\gamma E^2\iiint_V\odif{\tau}=\gamma E^2V.\]
+
+Or \(V=SL\) donc \[P_\tot=\gamma E^2SL=\dfrac{\gamma E^2}{L}SL^2.\]
+
+Or \(U=EL\), \(R=\dfrac{L}{\gamma S}\) et \(U=RI\) donc \[P_\tot=\dfrac{1}{R}U^2=RI^2.\]
+
+Ainsi, la puissance dissipée par effet Joule est égale à la puissance cédée par le champ aux porteurs de charge.
+
+\section{Bilan d'énergie électromagnétique}
+
+\subsection{Équation locale de conservation}
+
+On considère une surface \(S\) définissant le volume \(V\).
+
+On note \(U\paren{t}\) l'énergie électromagnétique emmagasinée dans le volume \(V\), \(\fdif{W_\sortie}\) l'énergie qui a traversé la surface \(S\) de l'intérieur vers l'extérieur entre \(t\) et \(t+\odif{t}\) et \(\fdif{W_\cedee}\) l'énergie cédée par le champ aux porteurs de charge dans le volume \(V\) entre \(t\) et \(t+\odif{t}\).
+
+On a \[\color{red}\odif{U}=U\paren{t+\odif{t}}-U\paren{t}=-\fdif{W_\sortie}-\fdif{W_\cedee}.\]
+
+On définit \(u\paren{t}=\odv{U}{\tau}\) la densité d'énergie électromagnétique (en \(\unit{\joule\per\cubic\metre}\)).
+
+On a \[\begin{aligned}
+\odif{U}&=u\odif{\tau} \\
+U&=\iiint_Vu\odif{\tau}
+\end{aligned}\] et \[\fdif{W_\cedee}=\iiint_V\v{j}\scal\v{E}\odif{\tau}\odif{t}.\]
+
+On définit \(\v{\Pi}\) la densité de puissance électromagnétique surfacique (en \(\unit{\watt\per\square\metre}\)) et on a \[\fdif{W_\sortie}=\oiint_S\v{\Pi}\scal\odif{\v{S}}\odif{t}.\]
+
+De plus, on a \[\odif{U}=\pdv{}{t}\paren{\iiint_Vu\odif{\tau}}\odif{t}=\iiint_V\pdv{u}{t}\odif{\tau}\odif{t}.\]
+
+Donc \[\begin{WithArrows}
+\iiint_V\pdv{u}{t}\odif{\tau}\odif{t}&=-\iiint_V\v{j}\scal\v{E}\odif{\tau}\odif{t}-\oiint_S\v{\Pi}\scal\odif{\v{S}} \Arrow{Ostrogradski-Green} \\
+\iiint_V\pdv{u}{t}\odif{\tau}\odif{t}&=-\iiint_V\v{j}\scal\v{E}\odif{\tau}\odif{t}-\iiint_V\div\v{\Pi}\odif{\tau}\odif{t} \\
+\iiint_V\paren{\pdv{u}{t}+\v{j}\scal\v{E}+\div\v{\Pi}}\odif{\tau}\odif{t}&=0
+\end{WithArrows}\] soit \textcolor{red}{l'équation locale de conservation de la charge} : \[\color{red}\pdv{u}{t}+\v{j}\scal\v{E}+\div\v{\Pi}=0.\]
+
+On admet temporairement \[u\paren{t}=\dfrac{1}{2}\epsilon_0E^2+\dfrac{B^2}{2\mu_0}\] et \[\v{\Pi}=\dfrac{\v{E}\vecto\v{B}}{\mu_0}.\]
+
+On appelle \(\v{\Pi}\) le vecteur de Poynting.
+
+\subsection{Identité de Poynting (HP)}
+
+D'après \MA, on a \[\begin{aligned}
+\v{j}&=\dfrac{1}{\mu_0}\paren{\rot\v{B}-\mu_0\epsilon_0\pdv{\v{E}}{t}} \\
+\v{j}\scal\v{E}&=\dfrac{\v{E}}{\mu_0}\paren{\rot\v{B}-\mu_0\epsilon_0\pdv{\v{E}}{t}}.
+\end{aligned}\]
+
+Or \(\div\paren{\v{E}\vecto\v{B}}=\v{B}\scal\rot\v{E}-\v{E}\scal\rot\v{B}\) donc \[\begin{WithArrows}
+\v{j}\scal\v{E}&=\dfrac{1}{\mu_0}\paren{\v{B}\scal\rot\v{E}-\div\paren{\v{E}\vecto\v{B}}-\mu_0\epsilon_0\v{E}\scal\pdv{\v{E}}{t}} \Arrow{\MF} \\
+&=\dfrac{1}{\mu_0}\paren{-\div\paren{\v{E}\vecto\v{B}}-\underbrace{\v{B}\scal\pdv{\v{B}}{t}}_{=\pdv{}{t}\paren{\dfrac{B^2}{2}}}-\mu_0\epsilon_0\underbrace{\v{E}\scal\pdv{\v{E}}{t}}_{=\pdv{}{t}\paren{\dfrac{E^2}{2}}}}.
+\end{WithArrows}\]
+
+On retrouve l'\textcolor{red}{équation locale de conservation de la charge} ou \textcolor{red}{identité de Poynting} : \[\color{red}\v{j}\scal\v{E}+\div\dfrac{\v{E}\vecto\v{B}}{\mu_0}+\pdv{}{t}\paren{\dfrac{B^2}{2\mu_0}+\dfrac{\epsilon_0E^2}{2}}=0.\]
+
+Remarque : le vecteur de Poynting \(\v{\Pi}\) est parfois noté \(\v{R}\).
+
+\subsection{Ordres de grandeur}
+
+On considère une surface \(\odif{\v{S}}\) traversée par le vecteur de Poynting \(\v{\Pi}\) et on note \(\theta\) l'angle entre \(\odif{\v{S}}\) et \(\v{\Pi}\).
+
+En notant \(\odif{P_R}\) la puissance rayonnée par le vecteur de Poynting à travers la surface \(\odif{S}\), on a \[\odif{P_R}=\v{\Pi}\scal\odif{\v{S}}=\Pi\odif{S}\cos\theta.\]
+
+On en déduit \[P_R=\iint\Pi\odif{S}\cos\theta\] et, si la surface est plane et \(\v{\Pi}\) est uniforme : \[P_R=\Pi S\cos\theta.\]
+
+Calculons par exemple la puissance surfacique rayonnée par le Soleil en haut de l'atmosphère terrestre.
+
+On note \(D_{TS}\) la distance entre le Soleil et la Terre et \(R_S\) le rayon du Soleil.
+
+On note \(T_S=\SI{5800}{\kelvin}\) la température du Soleil.
+
+En notant \(\v{\Pi}_S\) la puissance surfacique rayonnée par le Soleil, d'après la loi de Stefan, on a \[\Pi_S=\sigma T_S^4\] avec \(\sigma=\SI{5.67e-8}{\watt\per\metre\squared\per\kelvin\tothe{4}}\), \ie \(\Pi_S\approx\SI{50}{\mega\watt\per\metre\squared}\).
+
+On note \(\Pi_T\) le flux solaire au niveau de la Terre et \(P_S\) la puissance totale émise par le Soleil. On a \[\begin{aligned}
+P_S&=\oiint_{\substack{\text{surface} \\ \text{Soleil}}}\v{\Pi}_S\scal\odif{\v{S}}=4\pi R_S^2\Pi_S \\
+&=\oiint_{\substack{\text{sphère} \\ \text{de} \\ \text{rayon }D_{TS}}}\v{\Pi}_T\scal\odif{\v{S}}=4\pi D_{TS}^2\Pi_T.
+\end{aligned}\]
+
+Donc \(4\pi R_S^2\Pi_S=4\pi D_{TS}^2\Pi_T\).
+
+Donc \(\Pi_T=\Pi_S\paren{\dfrac{R_S}{D_{TS}}}^2\).
+
+Or \(D_{TS}=\SI{150e6}{\kilo\metre}\) et \(R_S=\SI{695e3}{\kilo\metre}\) donc \[\color{red}\Pi_T=\SI{1368}{\watt\per\metre\squared}.\]
+
+\section{Exemples de bilan d'énergie électromagnétique}
+
+\subsection{Conducteur ohmique}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw (3,2) -- (9,2);
+\draw (3,5) arc[start angle=90,end angle=270,x radius=1,y radius=1.5];
+\draw[dotted] (4,3.5) arc[start angle=0,end angle=90,x radius=1,y radius=1.5];
+\draw[dotted] (4,3.5) arc[start angle=0,end angle=-90,x radius=1,y radius=1.5];
+\draw (10,3.5) arc[start angle=0,end angle=360,x radius=1,y radius=1.5];
+\draw (3,5) -- (9,5);
+\draw[<->] (3,1) -- (9,1) node[midway,below] {\(L\)};
+\draw[->,red] (4.7,3) -- ++(1.5,0) node[below] {\(\v{j}\)};
+\draw[->,blue] (5,4) -- ++(2.1,0) node[above] {\(\v{E}\)};
+\node at (9,2.5) {\(S\)};
+\draw (3,3.5) -- (3,5) node[midway,right] {\(a\)};
+\filldraw (11,6.5) circle (2pt) node[below] {\(M\)};
+\draw[->,blue] (11,6.5) -- ++(1,0) node[below] {\(\v{u}_z\)};
+\draw[->,blue] (11,6.5) -- ++(0,1) node[left] {\(\v{u}_r\)};
+\filldraw[blue] (10.4,6.5) circle (2pt);
+\draw[blue] (10.4,6.5) circle (6pt) node[left=6pt] {\(\v{u}_\theta\)};
+\filldraw[green] (6,6.2) circle (2pt);
+\draw[green] (6,6.2) circle (6pt) node[left=6pt] {\(\v{B}\)};
+\draw[red,->] (4.3,1.7) -- ++(0,0.9);
+\draw[red,->] (5.3,1.7) -- ++(0,0.9);
+\draw[red,->] (7,1.7) -- ++(0,0.9);
+\draw[red,->] (8,1.7) -- ++(0,0.9);
+\draw[red,->] (4.3,5.3) node[above left] {\(\v{\Pi}\)} -- ++(0,-0.9);
+\draw[red,->] (5.3,5.3) -- ++(0,-0.9);
+\draw[red,->] (6.3,5.3) -- ++(0,-0.9);
+\draw[red,->] (7.6,5.3) -- ++(0,-0.9);
+\end{tikzpicture}
+\end{center}
+
+\(\v{E}\) est un champ électrique extérieur.
+
+On a \(\v{j}=\gamma\v{E}\) et \(U=RI\) où \(R=\dfrac{L}{\gamma S}\).
+
+On a \(I=jS=j\pi a^2=\gamma E\pi a^2\).
+
+On a donc \(\v{B}=\begin{dcases}
+\dfrac{\mu_0I}{2\pi a^2}r\v{u}_\theta=\dfrac{\mu_0\gamma Er}{2}\v{u}_\theta &\text{si }r<a \\
+\dfrac{\mu_0I}{2\pi r}\v{u}_\theta=\dfrac{\mu_0\gamma Ea^2}{2}\v{u}_\theta &\text{si }r>a
+\end{dcases}\).
+
+Alors, \(\v{\Pi}=\dfrac{\v{E}\vecto\v{B}}{\mu_0}=\begin{dcases}
+\dfrac{E}{\mu_0}\v{u}_z\vecto\dfrac{\mu_0\gamma Er}{2}\v{u}_\theta=-\dfrac{\gamma E^2r}{2}\v{u}_r &\text{si }r<a \\
+\dfrac{E}{\mu_0}\v{u}_z\vecto\dfrac{\mu_0\gamma Ea^2}{2r}\v{u}_\theta=-\dfrac{\gamma E^2a^2}{2r}\v{u}_r &\text{si }r>a
+\end{dcases}\)
+
+Ainsi, \(\v{\Pi}\) est dirigé selon \(-\v{u}_r\).
+
+\begin{itemize}
+    \item Contrairement à l'intuition, la puissance du champ \(\paren{\v{E},\v{B}}\) entre par la surface latérale. \\
+    \item Le conducteur ohmique est dissipatif donc la puissance doit y entrer, d'où \(\v{\Pi}\) selon \(-\v{u}_r\).
+\end{itemize}
+
+En notant \(P\) la puissance entrant dans le conducteur ohmique, on a \[\begin{aligned}
+P&=\oiint\v{\Pi}\scal\odif{\v{S}} \\
+&=\cancelto{0}{\iint_{S_g}\v{\Pi}\scal\odif{\v{S}}}+\cancelto{0}{\iint_{S_d}\v{\Pi}\scal\odif{\v{S}}}+\iint_{S_l}\v{\Pi}\scal\odif{\v{S}} \\
+&=\iint_{S_l}\Pi\odif{S} \\
+&=-\dfrac{\gamma E^2a^2}{2a}2\pi aL \\
+&=-\dfrac{\gamma E^2a^2\pi L^2}{L} \\
+&=-\dfrac{\gamma U^2\pi a^2}{L} \\
+&=-\dfrac{U^2}{R}.
+\end{aligned}\]
+
+Bilan de puissance : \[\iiint\pdv{u}{t}\odif{\tau}\odif{t}+\underbrace{\iiint\v{j}\scal\v{E}\odif{\tau}\odif{t}}_{=RI^2}+\underbrace{\oiint\v{\Pi}\scal\odif{\v{S}}\odif{t}}_{=-RI^2}=0.\]
+
+Or \(u=\dfrac{B^2}{2\mu_0}+\dfrac{\epsilon_0E^2}{2}\) donc \(\pdv{u}{t}=0\).
+
+D'où \(0=0\) : le bilan de puissance est valide.
