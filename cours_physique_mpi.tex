@@ -115,13 +115,13 @@ input-digits = 0123456789\pi
 \mathcode`;=\numexpr\mathcode`;-"3000
 
 % Commands for size-adaptative parentheses, brackets, curly brackets, absolute value and magnitude.
-\newcommand{\paren}[1]{\biggl(#1\biggr)} % (x)
-\newcommand{\croch}[1]{\biggl[#1\biggr]} % [x]
-\newcommand{\accol}[1]{\biggl\lbrace#1\biggr\rbrace} % {x}
-\newcommand{\abs}[1]{\biggl\lvert#1\biggr\rvert} % |x|
-\newcommand{\norme}[1]{\biggl\|#1\biggr\|} % ||x||
-\newcommand{\floor}[1]{\biggl\lfloor#1\biggr\rfloor} % ⌊x⌋
-\newcommand{\ceil}[1]{\biggl\lceil#1\biggr\rceil} % ⌈x⌉
+\newcommand{\paren}[1]{\left(#1\right)} % (x)
+\newcommand{\croch}[1]{\left[#1\right]} % [x]
+\newcommand{\accol}[1]{\left\lbrace#1\right\rbrace} % {x}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert} % |x|
+\newcommand{\norme}[1]{\left\|#1\right\|} % ||x||
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor} % ⌊x⌋
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil} % ⌈x⌉
 
 % Commands for size-adaptative intervals and integer intervals. The commands' roots are "interv" and "interventier" and the added e or i at the end mean "excluded" and "included" respectively.
 \newcommand{\intervii}[2]{\left[#1;#2\right]} % [a;b]
